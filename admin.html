@@ -1,0 +1,655 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ff7a00">
+<title>Admin Portal | Temp Cover</title>
+<style>
+:root{--orange:#ff7a00;--dark:#202124;--muted:#747985;--line:#e9e9ed;--bg:#f6f7f9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--dark);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{background:linear-gradient(120deg,#d95f00,#ff7a00,#ff9d3f);color:white;padding:23px 18px 32px}
+.top{max-width:1050px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font-size:21px;font-weight:850;letter-spacing:1px}
+.brand small{display:block;font-size:12px;font-weight:500;letter-spacing:0;margin-top:4px}
+main{max-width:1050px;margin:-14px auto 40px;padding:0 15px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:21px;margin-bottom:17px;box-shadow:0 5px 20px #11100808}
+h1{font-size:24px;margin:0 0 7px}
+h2{font-size:18px;margin:0 0 7px}
+p{color:var(--muted);font-size:14px;line-height:1.55}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+label{font-size:13px;font-weight:650}
+input,select{width:100%;min-height:45px;border:1px solid #dfe1e6;border-radius:10px;padding:10px 12px;font:inherit;background:white;color:var(--dark)}
+input:focus,select:focus{outline:2px solid #ff7a0040;border-color:var(--orange)}
+button{border:0;border-radius:10px;padding:12px 15px;font-size:14px;font-weight:700;cursor:pointer}
+button:disabled{opacity:.55;cursor:wait}
+.primary{background:var(--orange);color:white}
+.secondary{background:white;color:#242424;border:1px solid #ddd}
+.full{width:100%;margin-top:17px}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:15px 0}
+.toolbar input{flex:1;min-width:180px}
+.pill{display:inline-block;font-size:11px;font-weight:750;background:#fff1e4;color:#9d4800;padding:7px 10px;border-radius:20px}
+.section{border-top:1px solid var(--line);padding-top:19px;margin-top:21px}
+.check{display:flex;align-items:center;gap:10px;margin:15px 0}
+.check input{width:18px;min-height:18px;accent-color:var(--orange)}
+.notice{padding:12px;border-radius:10px;background:#fff5eb;color:#854000;font-size:13px;line-height:1.5;margin-top:13px}
+#message,#loginMessage,#editMessage{display:none;border-radius:10px;padding:12px;margin-top:14px;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+#message.ok,#editMessage.ok{display:block;background:#eaf8ef;color:#176534}
+#message.err,#editMessage.err{display:block;background:#fff0ef;color:#a12620}
+#loginMessage{display:block;background:#fff5eb;color:#854000}
+.hidden{display:none!important}
+.customer-list{display:grid;gap:10px}
+.customer{border:1px solid var(--line);border-radius:13px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.customer strong{display:block;font-size:14px;overflow-wrap:anywhere}
+.customer small{display:block;color:var(--muted);font-size:12px;margin-top:4px;overflow-wrap:anywhere}
+.customer button{flex-shrink:0}
+.status{font-size:11px;color:#854000;background:#fff1e4;border-radius:20px;padding:5px 8px;display:inline-block;margin-top:7px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:8px 15px 28px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.card{padding:17px}.brand{font-size:19px}.customer{align-items:flex-start}.customer button{padding:10px}.top{align-items:center}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="brand">TEMP COVER<small>Administration Portal</small></div>
+    <button class="secondary hidden" id="logout" type="button">Sign out</button>
+  </div>
+</header>
+
+<main>
+  <section class="card hidden" id="login">
+    <h1>Admin sign in</h1>
+    <p>Sign in using your authorised administrator account.</p>
+    <form id="loginForm">
+      <div class="field">
+        <label for="loginEmail">Email address</label>
+        <input id="loginEmail" type="email" autocomplete="username" required>
+      </div>
+      <div class="field" style="margin-top:13px">
+        <label for="loginPassword">Password</label>
+        <input id="loginPassword" type="password" autocomplete="current-password" required>
+      </div>
+      <button class="primary full" type="submit">Sign in securely</button>
+    </form>
+    <div id="loginMessage" class="hidden"></div>
+  </section>
+
+  <div id="portal" class="hidden">
+    <section class="card">
+      <h1>Administration</h1>
+      <p>Manage customers created by your administrator account. Customer access and changes are checked by the server.</p>
+      <span class="pill">AUTHORISED ADMINISTRATION</span>
+    </section>
+
+    <section class="card">
+      <h2>Customers</h2>
+      <p>Search by customer name or email, then select a customer to view or edit their details.</p>
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search name or email…" aria-label="Search customers">
+        <button class="secondary" id="refresh" type="button">Refresh list</button>
+      </div>
+      <div id="customerList" class="customer-list">
+        <p>Load the customer list to begin.</p>
+      </div>
+      <div id="listMessage" class="notice hidden" role="status"></div>
+    </section>
+
+    <section class="card hidden" id="editCard">
+      <h2>Edit customer</h2>
+      <p>Changes apply to the selected existing account. This will not create another customer.</p>
+      <form id="editForm">
+        <input type="hidden" id="editCustomerId">
+        <div class="grid">
+          <div class="field">
+            <label for="editName">Full name</label>
+            <input id="editName" required>
+          </div>
+          <div class="field">
+            <label for="editEmail">Email address</label>
+            <input id="editEmail" type="email" required>
+          </div>
+          <div class="field">
+            <label for="editPhone">Phone</label>
+            <input id="editPhone" type="tel">
+          </div>
+          <div class="field">
+            <label for="editLicence">Driving licence</label>
+            <input id="editLicence">
+          </div>
+          <div class="field" style="grid-column:1/-1">
+            <label for="editAddress">Address</label>
+            <input id="editAddress">
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Existing policy</h2>
+          <p>Select a policy to edit its vehicle, duration, amount and start time. If no policy is listed, this section cannot create a new policy.</p>
+          <div class="field">
+            <label for="policySelect">Policy</label>
+            <select id="policySelect">
+              <option value="">No policy selected</option>
+            </select>
+          </div>
+
+          <div id="editPolicyFields" class="hidden">
+            <div class="grid" style="margin-top:14px">
+              <div class="field">
+                <label for="editDuration">Cover duration</label>
+                <select id="editDuration">
+                  <option value="1hour">1 hour</option>
+                  <option value="2hours">2 hours</option>
+                  <option value="6hours">6 hours</option>
+                  <option value="12hours">12 hours</option>
+                  <option value="1day">1 day</option>
+                  <option value="7days">1 week (7 days)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="editAmount">Amount to record (£)</label>
+                <input id="editAmount" type="number" min="0" max="100000" step="0.01" required>
+              </div>
+              <div class="field">
+                <label for="editRegistration">Registration</label>
+                <input id="editRegistration">
+              </div>
+              <div class="field">
+                <label for="editMake">Make</label>
+                <input id="editMake">
+              </div>
+              <div class="field">
+                <label for="editModel">Model</label>
+                <input id="editModel">
+              </div>
+              <div class="field">
+                <label for="editYear">Year</label>
+                <input id="editYear" type="number" min="1900" max="2100">
+              </div>
+              <div class="field">
+                <label for="editColour">Colour</label>
+                <input id="editColour">
+              </div>
+              <div class="field">
+                <label for="editStart">Policy start</label>
+                <input id="editStart" type="datetime-local" required>
+              </div>
+            </div>
+            <div class="notice">The amount is recorded by an administrator. Editing this field does not take payment or verify a Stripe transaction. Changes to a policy's dates or duration can affect the displayed expiry time.</div>
+          </div>
+        </div>
+
+        <button class="primary full" id="saveEdit" type="submit">Save changes</button>
+        <button class="secondary full" id="cancelEdit" type="button">Cancel editing</button>
+        <div id="editMessage" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Create a customer account</h2>
+      <p>Create a new customer login and optionally assign a policy. Use the customer list above to manage existing accounts.</p>
+      <form id="customerForm">
+        <div class="grid">
+          <div class="field">
+            <label for="fullName">Full name *</label>
+            <input id="fullName" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="email">Email address *</label>
+            <input id="email" type="email" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input id="phone" type="tel" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="licence">Driving licence</label>
+            <input id="licence">
+          </div>
+          <div class="field" style="grid-column:1/-1">
+            <label for="address">Address</label>
+            <input id="address" autocomplete="street-address">
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Policy assignment</h2>
+          <label class="check">
+            <input type="checkbox" id="addPolicy">
+            Assign a policy to this customer
+          </label>
+          <div id="policyFields" class="hidden">
+            <div class="grid">
+              <div class="field">
+                <label for="duration">Cover duration</label>
+                <select id="duration">
+                  <option value="1hour">1 hour</option>
+                  <option value="2hours">2 hours</option>
+                  <option value="6hours">6 hours</option>
+                  <option value="12hours">12 hours</option>
+                  <option value="1day" selected>1 day</option>
+                  <option value="7days">1 week (7 days)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="amount">Amount to record (£)</label>
+                <input id="amount" type="number" min="0" max="100000" step="0.01" value="45">
+              </div>
+              <div class="field">
+                <label for="registration">Vehicle registration *</label>
+                <input id="registration">
+              </div>
+              <div class="field">
+                <label for="make">Vehicle make *</label>
+                <input id="make">
+              </div>
+              <div class="field">
+                <label for="model">Vehicle model *</label>
+                <input id="model">
+              </div>
+              <div class="field">
+                <label for="year">Vehicle year</label>
+                <input id="year" type="number" min="1900" max="2100">
+              </div>
+              <div class="field">
+                <label for="colour">Vehicle colour</label>
+                <input id="colour">
+              </div>
+              <div class="field">
+                <label for="startTime">Policy start (optional)</label>
+                <input id="startTime" type="datetime-local">
+              </div>
+            </div>
+            <div class="notice">This form records an administrator-entered amount. It does not take payment or verify that payment has been received. Only assign cover when it has been properly authorised.</div>
+          </div>
+        </div>
+        <button id="createButton" class="primary full" type="submit">Create customer account</button>
+        <div id="message" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+  </div>
+</main>
+<footer>Temp Cover · Secure administration</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const durationOptions = ["1hour","2hours","6hours","12hours","1day","7days"];
+  let customers = [];
+  let selectedCustomer = null;
+
+  function showBox(id, text, type = "notice") {
+    const el = $(id);
+    el.textContent = text;
+    el.className = type;
+  }
+
+  function localDateTime(value) {
+    if (!value) return "";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    const offset = date.getTimezoneOffset() * 60000;
+    return new Date(date.getTime() - offset).toISOString().slice(0,16);
+  }
+
+  function readableDuration(value) {
+    return ({
+      "1hour":"1 hour","2hours":"2 hours","6hours":"6 hours",
+      "12hours":"12 hours","1day":"1 day","7days":"1 week"
+    })[value] || value || "Not specified";
+  }
+
+  function policyLabel(policy) {
+    return [
+      policy.policy_number || "Policy",
+      policy.registration || "No registration",
+      readableDuration(policy.cover_duration),
+      policy.status || "Status unknown"
+    ].join(" · ");
+  }
+
+  async function callAdmin(body) {
+    const { data: { session }, error: sessionError } =
+      await supabaseClient.auth.getSession();
+
+    if (sessionError || !session) {
+      throw new Error("Your session has expired. Please sign in again.");
+    }
+
+    const { data, error } = await supabaseClient.functions.invoke(
+      "admin-manage", { body }
+    );
+
+    if (error) {
+      let message = error.message || "Request failed.";
+      try {
+        const payload = await error.context.json();
+        if (payload.error) message = payload.error;
+        if (payload.details) message += " — " + payload.details;
+      } catch (_) {}
+      throw new Error(message);
+    }
+
+    if (!data || !data.success) {
+      throw new Error(data?.error || "The request could not be completed.");
+    }
+    return data;
+  }
+
+  async function loadCustomers() {
+    $("refresh").disabled = true;
+    $("customerList").innerHTML = "<p>Loading customers…</p>";
+    $("listMessage").classList.add("hidden");
+
+    try {
+      const data = await callAdmin({action:"list_customers"});
+      customers = Array.isArray(data.customers) ? data.customers : [];
+      renderCustomers();
+    } catch (error) {
+      $("customerList").innerHTML = "";
+      showBox("listMessage", error.message || "Could not load customers.");
+      $("listMessage").classList.remove("hidden");
+    } finally {
+      $("refresh").disabled = false;
+    }
+  }
+
+  function renderCustomers() {
+    const query = $("search").value.trim().toLowerCase();
+    const filtered = customers.filter(customer =>
+      String(customer.full_name || "").toLowerCase().includes(query) ||
+      String(customer.email || "").toLowerCase().includes(query)
+    );
+    const list = $("customerList");
+    list.innerHTML = "";
+
+    if (!filtered.length) {
+      const p = document.createElement("p");
+      p.textContent = customers.length
+        ? "No customers match that search."
+        : "No customers have been created by this admin yet.";
+      list.appendChild(p);
+      return;
+    }
+
+    filtered.forEach(customer => {
+      const row = document.createElement("div");
+      row.className = "customer";
+
+      const details = document.createElement("div");
+      const name = document.createElement("strong");
+      name.textContent = customer.full_name || "Unnamed customer";
+      const email = document.createElement("small");
+      email.textContent = customer.email || "No email";
+      const policyCount = document.createElement("small");
+      const count = (customer.policies || []).length;
+      policyCount.textContent = count + (count === 1 ? " policy" : " policies");
+      details.append(name, email, policyCount);
+
+      const button = document.createElement("button");
+      button.className = "primary";
+      button.type = "button";
+      button.textContent = "View / edit";
+      button.addEventListener("click", () => openCustomer(customer));
+
+      row.append(details, button);
+      list.appendChild(row);
+    });
+  }
+
+  function openCustomer(customer) {
+    selectedCustomer = customer;
+    $("editCustomerId").value = customer.id;
+    $("editName").value = customer.full_name || "";
+    $("editEmail").value = customer.email || "";
+    $("editPhone").value = customer.phone || "";
+    $("editAddress").value = customer.address || "";
+    $("editLicence").value = customer.driving_licence || "";
+
+    const select = $("policySelect");
+    select.innerHTML = "";
+    const none = document.createElement("option");
+    none.value = "";
+    none.textContent = (customer.policies || []).length
+      ? "Choose an existing policy"
+      : "No existing policy";
+    select.appendChild(none);
+
+    (customer.policies || []).forEach(policy => {
+      const option = document.createElement("option");
+      option.value = String(policy.id);
+      option.textContent = policyLabel(policy);
+      select.appendChild(option);
+    });
+
+    $("editPolicyFields").classList.add("hidden");
+    $("editCard").classList.remove("hidden");
+    $("editMessage").className = "";
+    $("editMessage").textContent = "";
+    $("editCard").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  function populatePolicy() {
+    const policyId = $("policySelect").value;
+    const policy = (selectedCustomer?.policies || []).find(
+      item => String(item.id) === policyId
+    );
+
+    if (!policy) {
+      $("editPolicyFields").classList.add("hidden");
+      return;
+    }
+
+    $("editPolicyFields").classList.remove("hidden");
+    $("editDuration").value = durationOptions.includes(policy.cover_duration)
+      ? policy.cover_duration : "1day";
+    $("editAmount").value = Number(
+      policy.price ?? policy.amount_paid ?? 0
+    ).toFixed(2);
+    $("editRegistration").value = policy.registration || "";
+    $("editMake").value = policy.make || "";
+    $("editModel").value = policy.model || "";
+    $("editYear").value = policy.year || "";
+    $("editColour").value = policy.colour || "";
+    $("editStart").value = localDateTime(policy.start_time);
+  }
+
+  $("policySelect").addEventListener("change", populatePolicy);
+  $("search").addEventListener("input", renderCustomers);
+  $("refresh").addEventListener("click", loadCustomers);
+  $("cancelEdit").addEventListener("click", () => {
+    $("editCard").classList.add("hidden");
+    selectedCustomer = null;
+  });
+
+  $("editForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    $("saveEdit").disabled = true;
+    $("saveEdit").textContent = "Saving…";
+    $("editMessage").className = "";
+
+    try {
+      const body = {
+        action:"update_account",
+        customer_id:$("editCustomerId").value,
+        full_name:$("editName").value.trim(),
+        email:$("editEmail").value.trim(),
+        phone:$("editPhone").value.trim(),
+        address:$("editAddress").value.trim(),
+        driving_licence:$("editLicence").value.trim()
+      };
+
+      const policyId = $("policySelect").value;
+      if (policyId) {
+        const amount = Number($("editAmount").value);
+        const duration = $("editDuration").value;
+        const startValue = $("editStart").value;
+
+        if (!durationOptions.includes(duration) ||
+            !Number.isFinite(amount) || amount < 0 || amount > 100000 ||
+            !startValue) {
+          throw new Error("Check the policy duration, amount and start time.");
+        }
+
+        body.policy = {
+          id:policyId,
+          duration,
+          amount,
+          start_time:new Date(startValue).toISOString(),
+          registration:$("editRegistration").value.trim().toUpperCase(),
+          make:$("editMake").value.trim(),
+          model:$("editModel").value.trim(),
+          year:$("editYear").value ? Number($("editYear").value) : null,
+          colour:$("editColour").value.trim()
+        };
+      }
+
+      await callAdmin(body);
+      showBox("editMessage",
+        "Changes saved. If you changed the email address, check whether Supabase requires email confirmation.",
+        "ok");
+      await loadCustomers();
+
+      const updated = customers.find(c => c.id === body.customer_id);
+      if (updated) openCustomer(updated);
+    } catch (error) {
+      showBox("editMessage", error.message || "Could not save changes.", "err");
+    } finally {
+      $("saveEdit").disabled = false;
+      $("saveEdit").textContent = "Save changes";
+    }
+  });
+
+  $("addPolicy").addEventListener("change", () => {
+    const enabled = $("addPolicy").checked;
+    $("policyFields").classList.toggle("hidden", !enabled);
+    ["registration","make","model"].forEach(id => $(id).required = enabled);
+    $("amount").required = enabled;
+  });
+
+  const prices = {
+    "1hour":20,"2hours":0,"6hours":0,"12hours":0,"1day":45,"7days":150
+  };
+  $("duration").addEventListener("change", () => {
+    $("amount").value = prices[$("duration").value];
+  });
+
+  $("customerForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    $("createButton").disabled = true;
+    $("createButton").textContent = "Creating account…";
+    $("message").className = "";
+
+    try {
+      const bytes = new Uint8Array(24);
+      crypto.getRandomValues(bytes);
+      const temporaryPassword = Array.from(bytes)
+        .map(byte => byte.toString(16).padStart(2,"0")).join("");
+
+      const body = {
+        action:"create_account",
+        email:$("email").value.trim(),
+        full_name:$("fullName").value.trim(),
+        phone:$("phone").value.trim(),
+        address:$("address").value.trim(),
+        driving_licence:$("licence").value.trim(),
+        password:temporaryPassword
+      };
+
+      if ($("addPolicy").checked) {
+        const amount = Number($("amount").value);
+        if (!Number.isFinite(amount) || amount < 0 || amount > 100000) {
+          throw new Error("Enter a valid policy amount.");
+        }
+
+        body.policy = {
+          duration:$("duration").value,
+          amount,
+          registration:$("registration").value.trim().toUpperCase(),
+          make:$("make").value.trim(),
+          model:$("model").value.trim(),
+          year:$("year").value ? Number($("year").value) : null,
+          colour:$("colour").value.trim(),
+          start_time:$("startTime").value
+            ? new Date($("startTime").value).toISOString() : null
+        };
+      }
+
+      const data = await callAdmin(body);
+      const policyText = data.policy
+        ? " Policy " + (data.policy.policy_number || "") +
+          " was created with £" + Number(body.policy.amount).toFixed(2) +
+          " recorded as the admin-entered amount."
+        : "";
+      const emailText = data.setup_email_sent
+        ? " Password setup email sent."
+        : " Account created, but the password setup email needs attention.";
+
+      showBox("message",
+        "Customer account created successfully." + policyText + emailText +
+        (data.warning ? " " + data.warning : ""),
+        "ok");
+
+      $("customerForm").reset();
+      $("duration").value = "1day";
+      $("amount").value = 45;
+      $("policyFields").classList.add("hidden");
+      ["registration","make","model"].forEach(id => $(id).required = false);
+      $("amount").required = false;
+      await loadCustomers();
+    } catch (error) {
+      showBox("message", error.message || "Something went wrong.", "err");
+    } finally {
+      $("createButton").disabled = false;
+      $("createButton").textContent = "Create customer account";
+    }
+  });
+
+  async function refreshSession() {
+    const {data:{session},error} = await supabaseClient.auth.getSession();
+    if (error) console.error(error);
+
+    $("login").classList.toggle("hidden", !!session);
+    $("portal").classList.toggle("hidden", !session);
+    $("logout").classList.toggle("hidden", !session);
+
+    if (session) await loadCustomers();
+  }
+
+  $("loginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    const button = event.submitter;
+    button.disabled = true;
+    $("loginMessage").classList.remove("hidden");
+    $("loginMessage").textContent = "Signing in…";
+
+    try {
+      const {error} = await supabaseClient.auth.signInWithPassword({
+        email:$("loginEmail").value.trim(),
+        password:$("loginPassword").value
+      });
+      if (error) throw error;
+      await refreshSession();
+    } catch (error) {
+      $("loginMessage").textContent = error.message || "Sign-in failed.";
+    } finally {
+      button.disabled = false;
+    }
+  });
+
+  $("logout").addEventListener("click", async () => {
+    await supabaseClient.auth.signOut();
+    $("editCard").classList.add("hidden");
+    customers = [];
+    await refreshSession();
+  });
+
+  refreshSession();
+})();
+</script>
+</body>
+</html>
