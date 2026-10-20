@@ -286,13 +286,49 @@
             <h1 id="dashboardGreeting">Welcome</h1>
           </div>
         </div>
-        <button class="notification-button" type="button" aria-label="Notifications" title="Notifications">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
-            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-          </svg>
-          <span class="notification-dot"></span>
-        </button>
+       
+<div class="notification-wrap" style="position:relative;flex-shrink:0">
+  <button
+    class="notification-button"
+    id="notificationButton"
+    type="button"
+    aria-label="Notifications"
+    aria-expanded="false"
+    aria-controls="notificationPanel"
+    title="Notifications"
+  >
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+      <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+    </svg>
+    <span
+      id="notificationCount"
+      style="display:none;position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;padding:0 5px;border:2px solid white;border-radius:12px;background:#ff7a00;color:white;font-size:10px;font-weight:800;align-items:center;justify-content:center"
+    >0</span>
+  </button>
+
+  <section
+    id="notificationPanel"
+    hidden
+    aria-label="Your notifications"
+    style="position:absolute;z-index:2000;top:58px;right:0;width:min(340px,calc(100vw - 28px));max-height:420px;overflow-y:auto;background:white;border:1px solid #e8ebf0;border-radius:18px;box-shadow:0 12px 35px rgba(23,32,51,.16);color:#172033"
+  >
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px;border-bottom:1px solid #e8ebf0">
+      <div>
+        <h2 style="margin:0;font-size:17px">Notifications</h2>
+        <p id="notificationSummary" style="margin:5px 0 0;color:#737e90;font-size:12px">Your account updates</p>
+      </div>
+      <button id="markAllNotificationsRead" type="button" style="border:0;background:transparent;color:#d95f00;font-size:11px;font-weight:800;padding:6px 0">Mark all read</button>
+    </div>
+    <div id="notificationList" aria-live="polite" style="padding:8px 14px">
+      <p style="padding:15px 0;color:#737e90;font-size:13px">Loading notifications…</p>
+    </div>
+    <div style="padding:12px 16px;border-top:1px solid #e8ebf0;color:#737e90;font-size:10px">
+      Your Temp Cover account updates
+    </div>
+  </section>
+</div>
+
       </header>
 
       <section class="policy-summary">
