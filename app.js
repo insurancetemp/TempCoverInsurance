@@ -94,6 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         bindNavigation();
         bindPolicyButtons();
         bindLogout();
+        bindNotifications();
         refreshPolicyStatus();
 
         window.setInterval(refreshPolicyStatus, 60000);
@@ -104,6 +105,301 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function updateGreeting(user) {
     const metadata = user.user_metadata || {};
+    /* =========================================
+   TEMP COVER NOTIFICATION CENTRE
+   Uses the existing customer_notifications table
+========================================= */
+
+let customerNotifications = [];
+let notificationChannel = null;
+
+function bindNotifications() {
+  const button = document.getElementById("notificationButton");
+  const panel = document.getElementById("notificationPanel");
+  const markAllButton = document.getElementById("markAllNotificationsRead");
+
+  if (!button || !panel || !currentUser) return;
+
+  button.addEventListener("click", async (event) => {
+    event.stopPropagation();
+
+    const opening = panel.hidden;
+    panel.hidden = !opening;
+    button.setAttribute("aria-expanded", String(opening));
+
+    if (opening) {
+      await loadCustomerNotifications();
+    }
+  });
+
+  panel.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!panel.hidden && !event.target.closest(".notification-wrap")) {
+      panel.hidden = true;
+      button.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !panel.hidden) {
+      panel.hidden = true;
+      button.setAttribute("aria-expanded", "false");
+      button.focus();
+    }
+  });
+
+  if (markAllButton) {
+    markAllButton.addEventListener("click", markAllCustomerNotificationsRead);
+  }
+
+  loadCustomerNotifications();
+
+  // Live updates, if Realtime is enabled for this table.
+  if (notificationChannel) {
+    supabaseClient.removeChannel(notificationChannel);
+  }
+
+  notificationChannel = supabaseClient
+    .channel("customer-notifications-" + currentUser.id)
+    .on(
+      "postgres_changes",
+      {
+        event: "*",
+        schema: "public",
+        table: "customer_notifications",
+        filter: "user_id=eq." + currentUser.id
+      },
+      () => {
+        loadCustomerNotifications();
+      }
+    )
+    .subscribe();
+}
+
+async function loadCustomerNotifications() {
+  if (!currentUser) return;
+
+  const list = document.getElementById("notificationList");
+  if (!list) return;
+
+  list.innerHTML =
+    '<p style="padding:15px 0;color:#737e90;font-size:13px">Loading notifications…</p>';
+
+  const { data, error } = await supabaseClient
+    .from("customer_notifications")
+    .select("id,user_id,policy_id,type,title,message,is_read,created_at,read_at")
+    .eq("user_id", currentUser.id)
+    .order("created_at", { ascending: false })
+    .limit(50);
+
+  if (error) {
+    console.error("Could not load notifications:", error);
+    list.innerHTML =
+      '<p style="padding:15px 0;color:#737e90;font-size:13px">Notifications could not be loaded. Please try again.</p>';
+    return;
+  }
+
+  customerNotifications = data || [];
+  renderCustomerNotifications();
+}
+
+function renderCustomerNotifications() {
+  const list = document.getElementById("notificationList");
+  const badge = document.getElementById("notificationCount");
+  const summary = document.getElementById("notificationSummary");
+  const markAllButton = document.getElementById("markAllNotificationsRead");
+
+  if (!list) return;
+
+  const unreadCount = customerNotifications.filter(
+    notification => !notification.is_read
+  ).length;
+
+  if (badge) {
+    badge.textContent = unreadCount > 99 ? "99+" : String(unreadCount);
+    badge.style.display = unreadCount ? "flex" : "none";
+  }
+
+  if (summary) {
+    summary.textContent = unreadCount
+      ? `${unreadCount} unread notification${unreadCount === 1 ? "" : "s"}`
+      : "You're all caught up";
+  }
+
+  if (markAllButton) {
+    markAllButton.disabled = unreadCount === 0;
+    markAllButton.style.opacity = unreadCount === 0 ? ".45" : "1";
+    markAllButton.style.cursor = unreadCount === 0 ? "default" : "pointer";
+  }
+
+  list.replaceChildren();
+
+  if (!customerNotifications.length) {
+    const empty = document.createElement("div");
+    empty.style.cssText = "padding:22px 5px;text-align:center";
+
+    const title = document.createElement("p");
+    title.textContent = "You're all caught up";
+    title.style.cssText = "margin:0 0 7px;font-size:14px;font-weight:800";
+
+    const message = document.createElement("p");
+    message.textContent = "New account and policy updates will appear here.";
+    message.style.cssText = "margin:0;color:#737e90;font-size:12px;line-height:1.5";
+
+    empty.append(title, message);
+    list.appendChild(empty);
+    return;
+  }
+
+  customerNotifications.forEach(notification => {
+    const item = document.createElement("button");
+    item.type = "button";
+    item.style.cssText = [
+      "display:flex",
+      "width:100%",
+      "gap:11px",
+      "align-items:flex-start",
+      "padding:13px 4px",
+      "text-align:left",
+      "border:0",
+      "border-bottom:1px solid #edf0f3",
+      "background:" + (notification.is_read ? "white" : "#fff8f2"),
+      "color:#172033",
+      "cursor:" + (notification.is_read ? "default" : "pointer")
+    ].join(";");
+
+    const icon = document.createElement("span");
+    icon.textContent = getCustomerNotificationIcon(notification.type);
+    icon.style.cssText =
+      "width:35px;height:35px;flex-shrink:0;display:grid;place-items:center;border-radius:11px;background:#fff2e8;font-size:16px";
+
+    const content = document.createElement("span");
+    content.style.cssText = "display:block;flex:1;min-width:0";
+
+    const heading = document.createElement("span");
+    heading.textContent = notification.title || "Account update";
+    heading.style.cssText =
+      "display:block;margin:0 0 5px;font-size:13px;font-weight:800;overflow-wrap:anywhere";
+
+    const message = document.createElement("span");
+    message.textContent = notification.message || "";
+    message.style.cssText =
+      "display:block;color:#737e90;font-size:12px;line-height:1.5;overflow-wrap:anywhere";
+
+    const date = document.createElement("span");
+    date.textContent = formatCustomerNotificationDate(notification.created_at);
+    date.style.cssText =
+      "display:block;margin-top:7px;color:#929aaa;font-size:10px";
+
+    content.append(heading, message, date);
+
+    if (!notification.is_read) {
+      const unreadDot = document.createElement("span");
+      unreadDot.setAttribute("aria-label", "Unread");
+      unreadDot.style.cssText =
+        "width:7px;height:7px;flex-shrink:0;margin-top:6px;border-radius:50%;background:#ff7a00";
+      item.append(icon, content, unreadDot);
+    } else {
+      item.append(icon, content);
+    }
+
+    item.addEventListener("click", async () => {
+      if (!notification.is_read) {
+        await markCustomerNotificationRead(notification);
+      }
+    });
+
+    list.appendChild(item);
+  });
+}
+
+function getCustomerNotificationIcon(type) {
+  const value = String(type || "").toLowerCase();
+
+  if (value.includes("payment")) return "£";
+  if (value.includes("certificate")) return "📄";
+  if (value.includes("expiry") || value.includes("expire")) return "⏰";
+  if (value.includes("policy")) return "🛡️";
+  if (value.includes("account") || value.includes("welcome")) return "👤";
+
+  return "🔔";
+}
+
+function formatCustomerNotificationDate(value) {
+  if (!value) return "";
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+
+  return date.toLocaleString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
+
+async function markCustomerNotificationRead(notification) {
+  if (!currentUser || notification.is_read) return;
+
+  const { error } = await supabaseClient
+    .from("customer_notifications")
+    .update({
+      is_read: true,
+      read_at: new Date().toISOString()
+    })
+    .eq("id", notification.id)
+    .eq("user_id", currentUser.id)
+    .eq("is_read", false);
+
+  if (error) {
+    console.error("Could not mark notification as read:", error);
+    return;
+  }
+
+  notification.is_read = true;
+  notification.read_at = new Date().toISOString();
+  renderCustomerNotifications();
+}
+
+async function markAllCustomerNotificationsRead() {
+  if (!currentUser) return;
+
+  const unreadIds = customerNotifications
+    .filter(notification => !notification.is_read)
+    .map(notification => notification.id);
+
+  if (!unreadIds.length) return;
+
+  const { error } = await supabaseClient
+    .from("customer_notifications")
+    .update({
+      is_read: true,
+      read_at: new Date().toISOString()
+    })
+    .eq("user_id", currentUser.id)
+    .eq("is_read", false)
+    .in("id", unreadIds);
+
+  if (error) {
+    console.error("Could not mark notifications as read:", error);
+    return;
+  }
+
+  customerNotifications.forEach(notification => {
+    if (unreadIds.includes(notification.id)) {
+      notification.is_read = true;
+      notification.read_at = new Date().toISOString();
+    }
+  });
+
+  renderCustomerNotifications();
+}
+
     const fullName = firstAvailable(
         metadata.full_name,
         metadata.name,
