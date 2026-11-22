@@ -371,12 +371,16 @@
             <span class="secure-tag">Secure quote journey</span>
           </div>
           <p class="quote-sub">Start your temporary car insurance quote in a few simple steps.</p>
-          <label class="reg-label" for="registration">Your car registration</label>
-          <div class="reg-display">
-            <span class="gb">GB</span>
-            <input id="registration" type="text" maxlength="8" placeholder="Enter registration" autocomplete="off" aria-label="Car registration">
+          <div style="padding:19px;border:1px solid #e8ebf0;border-radius:13px;background:#f8f9fb">
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:#fff0e4;color:#e66c00;font-size:20px">🚘</span>
+              <div>
+                <strong style="display:block;font-size:14px;color:#172033;margin-bottom:4px">Have your car details ready?</strong>
+                <span style="font-size:12px;color:#667085">You'll enter your registration and details securely on the quote page.</span>
+              </div>
+            </div>
           </div>
-          <a class="button" id="quote-link" href="quote.html">Get my quote <span aria-hidden="true">&nbsp;→</span></a>
+          <a class="button" href="quote.html" style="width:100%;margin-top:16px;min-height:54px;font-size:15px">Get my quote <span aria-hidden="true">&nbsp;→</span></a>
           <div class="duration-preview" aria-label="Flexible cover durations">
             <span>Hourly options</span><span>Daily cover</span><span>Weekly cover</span>
           </div>
@@ -509,18 +513,6 @@
       </div>
     </div>
   </footer>
-  <script>
-    const registrationInput = document.getElementById("registration");
-    const quoteLink = document.getElementById("quote-link");
-    registrationInput.addEventListener("input", () => {
-      registrationInput.value = registrationInput.value.toUpperCase();
-    });
-    quoteLink.addEventListener("click", () => {
-      const registration = registrationInput.value.trim();
-      if (registration) {
-        sessionStorage.setItem("homepageRegistration", registration);
-      }
-    });
-  </script>
+
 </body>
 </html>
