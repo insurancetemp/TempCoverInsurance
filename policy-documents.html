@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff7a00">
+  <meta name="description" content="View policy information and documents held in your Temp Cover customer account.">
+  <title>Policy Documents | Temp Cover</title>
+  <style>
+    :root{--orange:#ff7a00;--orange-dark:#d95f00;--orange-light:#fff2e8;--ink:#172033;--muted:#737e90;--line:#e8ebf0;--page:#f5f6f9;--green:#16834a}
+    *{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;-webkit-tap-highlight-color:transparent}
+    body{margin:0;background:var(--page);color:var(--ink);padding:22px 16px 40px}
+    button,a{font:inherit}
+    .app{max-width:700px;margin:0 auto}
+    .brand{display:flex;align-items:center;gap:11px;margin:0 0 25px}
+    .brand img{width:42px;height:42px;object-fit:contain}
+    .brand-name{font-size:25px;font-weight:800;letter-spacing:-1px;text-transform:lowercase}
+    .brand-caption{margin-top:4px;color:var(--muted);font-size:9px;letter-spacing:1.3px}
+    .header{display:flex;align-items:center;gap:13px;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid var(--line)}
+    .back{width:43px;height:43px;display:grid;place-items:center;flex-shrink:0;border:1px solid var(--line);border-radius:14px;background:white;color:var(--ink);text-decoration:none;font-size:23px}
+    h1{margin:0;font-size:25px;letter-spacing:-.5px}
+    .sub{margin:5px 0 0;color:var(--muted);font-size:13px;line-height:1.5}
+    .intro{padding:21px;margin-bottom:20px;border-radius:21px;color:white;background:linear-gradient(135deg,#d95f00,#ff7a00,#ff9d3f);box-shadow:0 10px 24px rgba(255,122,0,.15)}
+    .intro h2{margin:0 0 7px;font-size:19px}
+    .intro p{margin:0;color:rgba(255,255,255,.94);font-size:13px;line-height:1.6}
+    .section-label{margin:24px 2px 11px;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase}
+    .policy{padding:19px;margin-bottom:14px;border:1px solid var(--line);border-radius:19px;background:white;box-shadow:0 4px 16px rgba(23,32,51,.035)}
+    .policy-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+    .vehicle{min-width:0}
+    .vehicle h2{margin:0;font-size:18px;text-transform:uppercase;overflow-wrap:anywhere}
+    .vehicle p{margin:6px 0 0;color:var(--muted);font-size:12px}
+    .status{padding:7px 10px;border-radius:20px;background:#eaf7ef;color:#16834a;font-size:10px;font-weight:900;white-space:nowrap}
+    .status.expired{background:#fff0ef;color:#b42318}
+    .plate{display:inline-flex;margin-top:14px;padding:7px 12px;border:2px solid #222;border-radius:5px;background:#ffd928;color:#111;font-size:13px;font-weight:900;letter-spacing:1.2px}
+    .facts{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px;padding:16px 0;margin-top:15px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .fact{min-width:0}
+    .fact span{display:block;margin-bottom:5px;color:var(--muted);font-size:10px;font-weight:700}
+    .fact strong{display:block;font-size:12px;line-height:1.45;overflow-wrap:anywhere}
+    .docs-title{margin:16px 0 10px;font-size:13px}
+    .doc-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;margin-top:9px;border:1px solid #ffd3b5;border-radius:12px;background:var(--orange-light);color:var(--orange-dark);font-size:12px;font-weight:800;text-decoration:none}
+    .doc-link span:last-child{font-size:18px}
+    .no-doc{padding:13px 14px;margin-top:9px;border:1px dashed #d8dde5;border-radius:12px;color:var(--muted);font-size:12px;line-height:1.55;background:#fafbfc}
+    .empty,.error{padding:22px;border:1px solid var(--line);border-radius:18px;background:white;color:var(--muted);font-size:13px;line-height:1.6}
+    .empty h2{margin:0 0 7px;color:var(--ink);font-size:17px}
+    .notice{padding:15px;margin-top:18px;border-radius:14px;background:#fff8ed;color:#75502b;font-size:11px;line-height:1.6}
+    .footer{padding:22px 0 0;text-align:center;color:var(--muted);font-size:10px}
+    @media(max-width:390px){.policy{padding:15px}.vehicle h2{font-size:16px}.facts{gap:12px 8px}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="brand">
+      <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/4fca033e0000640005160149/0x0.png" alt="Tempcover logo">
+      <div><div class="brand-name">tempcover</div><div class="brand-caption">CUSTOMER PORTAL</div></div>
+    </div>
+    <header class="header">
+      <a class="back" href="dashboard.html" aria-label="Back to account">‹</a>
+      <div><h1>Policy documents</h1><p class="sub">Your policies, vehicle details and available documents</p></div>
+    </header>
+    <section class="intro">
+      <h2>Your policy records</h2>
+      <p>Review the policy information linked to your signed-in account. Where a certificate or other document has been uploaded to your policy record, you can open it here.</p>
+    </section>
+    <div class="section-label">Your policies</div>
+    <div id="policyList" aria-live="polite"><div class="empty">Loading your policy records…</div></div>
+    <div class="notice">Documents shown here are the files stored against your account's policy records. If a certificate, schedule or policy wording is not available, contact support to check the document for your policy. The information summary on this page is not a substitute for the insurer-issued certificate or policy wording.</div>
+    <div class="footer">Temp Cover customer portal · Keep your policy documents safe.</div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    "use strict";
+    const SUPABASE_URL = "https://lvjdaizpaqjnchjvrsni.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_fnag8tkEEClWTLVR7fL1sQ_3_rbAzEc";
+    const client = window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+    const list = document.getElementById("policyList");
+    const text = value => value === null || value === undefined || String(value).trim() === "" ? "Not recorded" : String(value);
+    const date = value => {
+      if(!value) return "Not recorded";
+      const parsed = new Date(value);
+      return Number.isNaN(parsed.getTime()) ? "Not recorded" : parsed.toLocaleString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+    };
+    const money = value => {
+      if(value === null || value === undefined || value === "") return "Not recorded";
+      const n = Number(value);
+      return Number.isFinite(n) ? n.toLocaleString("en-GB",{style:"currency",currency:"GBP"}) : "Not recorded";
+    };
+    function safeDocumentUrl(value){
+      if(typeof value !== "string" || !value.trim()) return null;
+      try { const url = new URL(value,window.location.href); return ["https:","http:"].includes(url.protocol) ? url.href : null; }
+      catch { return null; }
+    }
+    function addFact(grid,label,value){
+      const item=document.createElement("div");item.className="fact";
+      const caption=document.createElement("span");caption.textContent=label;
+      const strong=document.createElement("strong");strong.textContent=value;
+      item.append(caption,strong);grid.append(item);
+    }
+    function addDocument(container,label,url){
+      const safe=safeDocumentUrl(url);
+      if(!safe) return false;
+      const link=document.createElement("a");link.className="doc-link";link.href=safe;link.target="_blank";link.rel="noopener noreferrer";
+      const name=document.createElement("span");name.textContent=label;
+      const arrow=document.createElement("span");arrow.textContent="↗";
+      link.append(name,arrow);container.append(link);return true;
+    }
+    function renderPolicy(policy,userId){
+      const card=document.createElement("article");card.className="policy";
+      const start=policy.start_time || policy.start_date;
+      const expiry=policy.expiry_time || policy.end_date;
+      const active=String(policy.status || "").toUpperCase()==="ACTIVE" && (!expiry || new Date(expiry).getTime()>Date.now());
+      const top=document.createElement("div");top.className="policy-top";
+      const vehicle=document.createElement("div");vehicle.className="vehicle";
+      const title=document.createElement("h2");title.textContent=[policy.make,policy.model].filter(Boolean).join(" ") || "Vehicle details unavailable";
+      const subtitle=document.createElement("p");subtitle.textContent=[policy.colour,policy.year].filter(Boolean).join(" · ") || "Vehicle information";
+      vehicle.append(title,subtitle);
+      const status=document.createElement("span");status.className="status"+(active?"":" expired");status.textContent=active?"ACTIVE":"ENDED";
+      top.append(vehicle,status);card.append(top);
+      const plate=document.createElement("div");plate.className="plate";plate.textContent=text(policy.registration);card.append(plate);
+      const facts=document.createElement("div");facts.className="facts";
+      addFact(facts,"Policy number",text(policy.policy_number));
+      addFact(facts,"Cover type",text(policy.cover_type));
+      addFact(facts,"Cover starts",date(start));
+      addFact(facts,"Cover expires",date(expiry));
+      addFact(facts,"Amount recorded as paid",money(policy.amount_paid ?? policy.price));
+      addFact(facts,"Policyholder",text(policy.full_name));
+      card.append(facts);
+      const heading=document.createElement("h3");heading.className="docs-title";heading.textContent="Available policy documents";card.append(heading);
+      const docs=document.createElement("div");
+      let found=false;
+      found=addDocument(docs,"View certificate of motor insurance",policy.certificate_url)||found;
+      found=addDocument(docs,"View policy schedule",policy.schedule_url || policy.policy_schedule_url)||found;
+      found=addDocument(docs,"View policy wording",policy.policy_wording_url || policy.wording_url)||found;
+      found=addDocument(docs,"View other policy document",policy.document_url)||found;
+      if(!found){
+        const missing=document.createElement("div");missing.className="no-doc";
+        missing.textContent="No document file is currently attached to this policy record. Your policy details are shown above, but this summary is not an insurance certificate. Please contact support to obtain or check your official policy documents.";
+        docs.append(missing);
+      }
+      card.append(docs);
+      return card;
+    }
+    async function load(){
+      try{
+        const {data:auth,error:authError}=await client.auth.getUser();
+        if(authError || !auth?.user){window.location.replace("login.html");return;}
+        const {data:policies,error}=await client.from("policies").select("*").eq("user_id",auth.user.id).order("expiry_time",{ascending:false});
+        if(error) throw error;
+        const rows=Array.isArray(policies)?policies:[];
+        rows.sort((a,b)=>new Date(b.expiry_time||b.end_date||b.start_time||0)-new Date(a.expiry_time||a.end_date||a.start_time||0));
+        list.replaceChildren();
+        if(!rows.length){
+          const empty=document.createElement("div");empty.className="empty";
+          const heading=document.createElement("h2");heading.textContent="No policies found";
+          const para=document.createElement("p");para.textContent="There are no policy records linked to this signed-in account yet. If you believe a policy should be here, please contact support.";
+          empty.append(heading,para);list.append(empty);return;
+        }
+        rows.forEach(policy=>list.append(renderPolicy(policy,auth.user.id)));
+      }catch(error){
+        console.error("Could not load policy documents:",error);
+        list.innerHTML='<div class="error">We could not load your policy records. Please refresh the page or sign in again. If the problem continues, contact support.</div>';
+      }
+    }
+    load();
+  </script>
+</body>
+</html>
