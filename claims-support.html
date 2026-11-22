@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff7a00">
+  <meta name="description" content="Claims information and support for Tempcover customers.">
+  <title>Claims & Support | Tempcover</title>
+  <style>
+    :root { --orange:#ff7a00; --orange-dark:#d95f00; --orange-light:#fff2e8; --ink:#172033; --muted:#737e90; --line:#e8ebf0; --page:#f5f6f9; }
+    * { box-sizing:border-box; font-family:Arial,Helvetica,sans-serif; -webkit-tap-highlight-color:transparent; }
+    body { margin:0; padding:22px 16px 40px; color:var(--ink); background:var(--page); }
+    a { color:var(--orange-dark); font-weight:800; overflow-wrap:anywhere; }
+    .container { width:100%; max-width:700px; margin:0 auto; }
+    .brand { display:flex; align-items:center; gap:11px; margin:0 0 25px; }
+    .brand img { width:40px; height:40px; object-fit:cover; border-radius:3px; }
+    .brand-name { font-size:25px; font-weight:800; letter-spacing:-1.1px; }
+    .brand-caption { margin-top:4px; color:var(--muted); font-size:9px; letter-spacing:1.3px; }
+    .header { display:flex; align-items:center; gap:13px; padding-bottom:22px; margin-bottom:20px; border-bottom:1px solid var(--line); }
+    .back { width:43px; height:43px; display:grid; place-items:center; flex-shrink:0; border:1px solid var(--line); border-radius:14px; background:#fff; color:var(--ink); text-decoration:none; font-size:24px; }
+    h1 { margin:0; font-size:25px; letter-spacing:-.5px; }
+    .subtitle { margin:5px 0 0; color:var(--muted); font-size:13px; }
+    .hero { padding:21px; margin-bottom:15px; border-radius:21px; color:#fff; background:linear-gradient(135deg,#d95f00,#ff7a00,#ff9d3f); }
+    .hero h2 { margin:0 0 8px; font-size:20px; }
+    .hero p { margin:0; color:rgba(255,255,255,.94); font-size:13px; line-height:1.6; }
+    .card { padding:19px; margin-bottom:14px; border:1px solid var(--line); border-radius:19px; background:#fff; box-shadow:0 3px 12px rgba(23,32,51,.025); }
+    .card h2 { margin:0 0 12px; font-size:16px; }
+    .card p { margin:0; color:#536174; font-size:13px; line-height:1.7; }
+    .faq { display:grid; gap:10px; }
+    details { overflow:hidden; border:1px solid var(--line); border-radius:15px; background:#fff; }
+    summary { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:16px; cursor:pointer; list-style:none; font-size:13px; font-weight:800; line-height:1.45; }
+    summary::-webkit-details-marker { display:none; }
+    summary:after { content:"+"; color:var(--orange-dark); font-size:22px; font-weight:400; }
+    details[open] summary:after { content:"−"; }
+    .answer { padding:0 16px 16px; color:#536174; font-size:13px; line-height:1.7; }
+    .answer ul { padding-left:19px; margin:8px 0; }
+    .answer li { margin:7px 0; }
+    .contact { display:flex; align-items:flex-start; gap:13px; padding:14px 0; border-bottom:1px solid #edf0f3; }
+    .contact:last-child { border-bottom:0; padding-bottom:0; }
+    .contact-icon { width:39px; height:39px; flex-shrink:0; display:grid; place-items:center; border-radius:12px; color:var(--orange-dark); background:var(--orange-light); font-size:18px; }
+    .contact h3 { margin:1px 0 5px; font-size:13px; }
+    .contact p { margin:0; color:var(--muted); font-size:12px; line-height:1.6; }
+    .callout { padding:14px; margin-top:12px; border-radius:14px; background:#fff7ed; color:#75400f; font-size:12px; line-height:1.6; }
+    .small { margin-top:12px !important; color:var(--muted) !important; font-size:11px !important; }
+    .footer { padding-top:12px; color:#8992a0; font-size:10px; text-align:center; line-height:1.6; }
+    @media(min-width:600px) { body { padding-top:30px; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="brand">
+      <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/4fca033e0000640005160149/0x0.png" alt="Tempcover logo">
+      <div><div class="brand-name">tempcover</div><div class="brand-caption">CUSTOMER PORTAL</div></div>
+    </div>
+    <header class="header">
+      <a class="back" href="dashboard.html" aria-label="Back to your account">‹</a>
+      <div><h1>Claims &amp; support</h1><p class="subtitle">What to do if you need to make a claim</p></div>
+    </header>
+    <section class="hero">
+      <h2>We're here to help</h2>
+      <p>If you have an accident or incident, contact the claims-handling team using the telephone number shown on your Certificate of Motor Insurance or policy wording. The documents for your specific policy are the key reference for the correct claims route.</p>
+    </section>
+    <section class="card">
+      <h2>Claims contact details</h2>
+      <div class="contact">
+        <div class="contact-icon">☎</div>
+        <div><h3>24/7 claims line</h3><p><a href="tel:02030386074">020 3038 6074</a></p></div>
+      </div>
+      <div class="contact">
+        <div class="contact-icon">✉</div>
+        <div><h3>Claims email</h3><p><a href="mailto:claims@tempcoverage.co.uk">claims@tempcoverage.co.uk</a></p></div>
+      </div>
+      <div class="contact">
+        <div class="contact-icon">✉</div>
+        <div><h3>General support</h3><p><a href="mailto:support@tempcoverage.co.uk">support@tempcoverage.co.uk</a></p></div>
+      </div>
+      <div class="callout">The additional phone number and email addresses above have been supplied for this portal. Before relying on them for a live claim, check that they match the contact details on your own policy certificate or wording. Tempcover's claims guidance says the policy documents identify the claims team for your cover.</div>
+    </section>
+    <section class="card">
+      <h2>Claims information</h2>
+      <div class="faq">
+        <details>
+          <summary>Will a temporary policy affect my No Claims Bonus?</summary>
+          <div class="answer">Tempcover's claims guidance explains that temporary insurance does not build or use your No Claims Bonus, and it should not affect the bonus on your separate annual policy.</div>
+        </details>
+        <details>
+          <summary>Where can I find my policy excess?</summary>
+          <div class="answer">Check your Policy Schedule, which is included with the policy documents issued when you bought the cover. You can also read <a href="https://www.tempcover.com/help-centre/understanding-car-insurance-excess" target="_blank" rel="noopener noreferrer">Tempcover's guide to understanding car insurance excess</a>.</div>
+        </details>
+        <details>
+          <summary>Am I entitled to a courtesy vehicle?</summary>
+          <div class="answer">This depends on the cover provided by your policy. Check your Policy Wording and Insurance Product Information to see whether a courtesy vehicle is included and what conditions apply.</div>
+        </details>
+        <details>
+          <summary>How do I make a claim?</summary>
+          <div class="answer">If your insured vehicle is involved in an accident or another incident, contact the claims team using the number on your Certificate of Motor Insurance or policy wording. Call as soon as you reasonably can, particularly if the vehicle needs recovering.</div>
+        </details>
+        <details>
+          <summary>What should I do immediately after an accident?</summary>
+          <div class="answer">
+            <ul>
+              <li>Stop at the scene. Leaving without stopping may be an offence.</li>
+              <li>Switch on your hazard warning lights.</li>
+              <li>Check whether anyone is hurt or in danger. Call the emergency services if needed.</li>
+              <li>Exchange the relevant details with the other people involved.</li>
+              <li>Photograph the damage, vehicle registrations, where the vehicles came to rest, and any relevant road signs or markings.</li>
+              <li>Do not admit fault or apologise in a way that could be understood as accepting responsibility.</li>
+              <li>Collect contact details from any witnesses.</li>
+            </ul>
+            Contact the claims team promptly, especially if recovery is required.
+          </div>
+        </details>
+        <details>
+          <summary>I have RAC Breakdown Cover. Who do I call?</summary>
+          <div class="answer">If RAC Breakdown Cover is included with your purchase, use the contact route in your RAC breakdown documents or visit the <a href="https://www.rac.co.uk/" target="_blank" rel="noopener noreferrer">RAC website</a> to access its breakdown assistance service.</div>
+        </details>
+        <details>
+          <summary>Can I claim for a damaged or broken windscreen?</summary>
+          <div class="answer">Check your own policy documents before arranging repairs or making a claim. They explain whether windscreen damage is covered and any applicable limits or excess.</div>
+        </details>
+      </div>
+      <p class="small">This page summarises the claims topics covered by Tempcover's online Claims Information page. Your policy wording, schedule and certificate take precedence for the cover and claims arrangements that apply to your policy.</p>
+    </section>
+    <section class="card">
+      <h2>Official Tempcover claims information</h2>
+      <p>For the original online claims help and any updates, visit <a href="https://www.tempcover.com/help-centre/claims" target="_blank" rel="noopener noreferrer">Tempcover's Claims Information page</a>.</p>
+    </section>
+    <div class="footer">Tempcover customer portal · Claims &amp; support</div>
+  </main>
+</body>
+</html>
