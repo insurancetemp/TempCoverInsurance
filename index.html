@@ -1,646 +1,526 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Temp Cover | Temporary Motor Insurance</title>
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
-
-body{
-    background:#f6f6f6;
-    color:#222;
-}
-
-
-/* HEADER */
-
-header{
-    background:white;
-    padding:18px 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    position:sticky;
-    top:0;
-    z-index:10;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-}
-
-
-.logo{
-    font-size:25px;
-    font-weight:800;
-    color:#222;
-}
-
-
-.logo span{
-    color:#ff7a00;
-}
-
-
-.portal-btn{
-
-    background:#ff7a00;
-    color:white;
-    padding:12px 18px;
-    border-radius:25px;
-    text-decoration:none;
-    font-weight:bold;
-    font-size:14px;
-
-}
-
-
-
-/* HERO */
-
-.hero{
-
-    background:
-    linear-gradient(
-    145deg,
-    #ff7a00,
-    #ff9f43
-    );
-
-    padding:45px 22px;
-    color:white;
-    border-radius:0 0 35px 35px;
-
-}
-
-
-.hero h1{
-
-    font-size:38px;
-    line-height:1.15;
-    margin-bottom:15px;
-
-}
-
-
-.hero p{
-
-    font-size:17px;
-    line-height:1.6;
-    margin-bottom:30px;
-
-}
-
-
-.quote-button{
-
-    display:block;
-    background:white;
-    color:#ff7a00;
-    text-align:center;
-    padding:16px;
-    border-radius:30px;
-    text-decoration:none;
-    font-weight:800;
-    margin-bottom:12px;
-
-}
-
-
-.login-button{
-
-    display:block;
-    border:2px solid white;
-    color:white;
-    text-align:center;
-    padding:14px;
-    border-radius:30px;
-    text-decoration:none;
-    font-weight:700;
-
-}
-
-
-
-/* SECTIONS */
-
-.section{
-
-    padding:35px 20px;
-
-}
-
-
-.section-title{
-
-    font-size:26px;
-    margin-bottom:20px;
-    color:#222;
-
-}
-
-
-
-.card{
-
-    background:white;
-    border-radius:24px;
-    padding:25px;
-    margin-bottom:18px;
-    box-shadow:0 8px 25px rgba(0,0,0,.06);
-
-}
-
-
-.card h3{
-
-    margin-bottom:10px;
-
-}
-
-
-.card p{
-
-    color:#666;
-    line-height:1.5;
-
-}
-
-
-
-.orange-card{
-
-    border-left:5px solid #ff7a00;
-
-}
-
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="Simple temporary car insurance. Get a quote online and manage your cover through your customer portal.">
+  <title>TempCover | Temporary Car Insurance</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #667085;
+      --orange: #ff7a00;
+      --orange-dark: #e66c00;
+      --orange-pale: #fff2e7;
+      --navy: #101827;
+      --line: #e8ebf0;
+      --page: #f6f7f9;
+      --white: #fff;
+      --shadow: 0 18px 48px rgba(16,24,39,.10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible, button:focus-visible, summary:focus-visible {
+      outline: 3px solid #ffb36e;
+      outline-offset: 3px;
+    }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,.96);
+      border-bottom: 1px solid rgba(232,235,240,.85);
+      backdrop-filter: blur(14px);
+    }
+    .header-inner {
+      max-width: 1180px;
+      min-height: 76px;
+      padding: 0 26px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -.9px;
+      white-space: nowrap;
+    }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      color: white;
+      background: var(--orange);
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+    .brand span:last-child { color: var(--orange); }
+    .main-nav { display: flex; align-items: center; gap: 30px; }
+    .main-nav a {
+      text-decoration: none;
+      color: #465064;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .main-nav a:hover { color: var(--orange-dark); }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .sign-in {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 15px;
+      border: 1px solid #e5e7eb;
+      border-radius: 999px;
+      color: var(--ink);
+      background: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+    .sign-in:hover { border-color: var(--orange); color: var(--orange-dark); }
+    .sign-in svg { width: 17px; height: 17px; }
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--orange);
+      color: white;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+      box-shadow: 0 8px 18px rgba(255,122,0,.20);
+      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .button:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 12px 24px rgba(255,122,0,.25); }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: white;
+      background:
+        radial-gradient(ellipse at 82% 20%, rgba(255,122,0,.30), transparent 34%),
+        radial-gradient(ellipse at 8% 100%, rgba(49,83,130,.32), transparent 42%),
+        linear-gradient(118deg, #101827 0%, #172338 56%, #202b3d 100%);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      right: -210px;
+      top: -250px;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 50%;
+      box-shadow: 0 0 0 45px rgba(255,255,255,.025), 0 0 0 90px rgba(255,255,255,.02);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      min-height: 560px;
+      padding: 74px 26px 82px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 58px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 22px;
+      color: #ffd2ad;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 25px; height: 2px; background: var(--orange); }
+    .hero h1 {
+      max-width: 590px;
+      margin: 0 0 20px;
+      font-size: clamp(42px, 5.2vw, 66px);
+      line-height: 1.04;
+      letter-spacing: -2.8px;
+    }
+    .hero h1 span { color: #ff9b4b; }
+    .hero-copy {
+      max-width: 510px;
+      margin: 0 0 29px;
+      color: #c7cfdb;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+    .hero-points { display: flex; flex-wrap: wrap; gap: 12px 22px; color: #e5eaf1; font-size: 13px; font-weight: 700; }
+    .hero-points span { display: inline-flex; align-items: center; gap: 7px; }
+    .tick { color: #ff9b4b; font-size: 17px; }
+    .quote-panel {
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 23px;
+      background: white;
+      color: var(--ink);
+      box-shadow: 0 28px 70px rgba(0,0,0,.25);
+    }
+    .quote-panel-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+    .quote-panel h2 { margin: 0; font-size: 25px; letter-spacing: -.7px; }
+    .secure-tag { color: #16834a; background: #eaf7ef; border-radius: 999px; padding: 7px 10px; font-size: 11px; font-weight: 800; white-space: nowrap; }
+    .quote-sub { margin: 0 0 23px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .reg-label { display: block; margin-bottom: 9px; color: #424b5d; font-size: 13px; font-weight: 800; }
+    .reg-display {
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fff;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .reg-display:focus-within { border-color: var(--orange); box-shadow: 0 0 0 4px rgba(255,122,0,.12); }
+    .gb {
+      width: 48px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: #244a91;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .reg-display input {
+      min-width: 0;
+      flex: 1;
+      padding: 16px 14px;
+      border: 0;
+      outline: 0;
+      color: var(--ink);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .reg-display input::placeholder { color: #a7adba; font-size: 14px; letter-spacing: 0; font-weight: 500; text-transform: none; }
+    .quote-panel .button { width: 100%; margin-top: 16px; min-height: 54px; font-size: 15px; }
+    .quote-note { margin: 14px 0 0; color: #8a93a2; text-align: center; font-size: 11px; line-height: 1.5; }
+    .duration-preview { display: flex; gap: 8px; margin-top: 17px; }
+    .duration-preview span { flex: 1; padding: 10px 5px; border-radius: 9px; background: #f6f7f9; color: #697386; text-align: center; font-size: 11px; font-weight: 700; }
+    .trust-strip { border-bottom: 1px solid var(--line); background: white; }
+    .trust-inner { max-width: 1180px; margin: auto; padding: 22px 26px; display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .trust-item { display: flex; align-items: center; justify-content: center; gap: 12px; color: #394458; font-size: 13px; font-weight: 800; }
+    .trust-icon { width: 37px; height: 37px; display: grid; place-items: center; border-radius: 12px; color: var(--orange-dark); background: var(--orange-pale); font-size: 18px; }
+    .section { padding: 82px 26px; }
+    .section-inner { max-width: 1180px; margin: auto; }
+    .section-heading { max-width: 700px; margin: 0 auto 42px; text-align: center; }
+    .section-kicker { margin: 0 0 12px; color: var(--orange-dark); font-size: 11px; font-weight: 900; letter-spacing: 1.7px; text-transform: uppercase; }
+    .section-heading h2 { margin: 0 0 14px; color: var(--ink); font-size: clamp(30px, 4vw, 43px); line-height: 1.12; letter-spacing: -1.6px; }
+    .section-heading p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.7; }
+    .reason-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .reason-card { padding: 28px; border: 1px solid var(--line); border-radius: 18px; background: white; transition: transform .2s ease, box-shadow .2s ease; }
+    .reason-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .reason-icon { width: 48px; height: 48px; display: grid; place-items: center; margin-bottom: 22px; border-radius: 15px; color: var(--orange-dark); background: var(--orange-pale); font-size: 22px; }
+    .reason-card h3 { margin: 0 0 10px; font-size: 18px; }
+    .reason-card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .soft-section { background: var(--page); }
+    .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; counter-reset: step; }
+    .step { position: relative; padding: 25px 20px; border: 1px solid var(--line); border-radius: 17px; background: white; }
+    .step-number { width: 36px; height: 36px; display: grid; place-items: center; margin-bottom: 19px; border-radius: 50%; background: var(--orange); color: white; font-size: 14px; font-weight: 900; }
+    .step h3 { margin: 0 0 9px; font-size: 16px; }
+    .step p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+    .cover-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 55px; align-items: center; }
+    .cover-art {
+      min-height: 330px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 22px;
+      background: radial-gradient(circle at 70% 30%, #ffbd87, transparent 34%), linear-gradient(145deg,#fff0e4,#ffe0c5);
+    }
+    .car-illustration { width: min(84%, 420px); height: auto; filter: drop-shadow(0 20px 15px rgba(100,57,23,.16)); }
+    .cover-copy .section-kicker { text-align: left; }
+    .cover-copy h2 { margin: 0 0 16px; font-size: clamp(30px,4vw,42px); line-height: 1.12; letter-spacing: -1.5px; }
+    .cover-copy > p { color: var(--muted); font-size: 15px; line-height: 1.75; }
+    .cover-list { display: grid; gap: 13px; margin: 24px 0 28px; padding: 0; list-style: none; }
+    .cover-list li { display: flex; align-items: flex-start; gap: 11px; color: #3e485a; font-size: 14px; line-height: 1.5; }
+    .cover-list b { color: var(--orange-dark); font-size: 17px; }
+    .faq-list { max-width: 850px; margin: auto; display: grid; gap: 12px; }
+    details { padding: 20px 22px; border: 1px solid var(--line); border-radius: 14px; background: white; }
+    summary { cursor: pointer; color: var(--ink); font-size: 15px; font-weight: 800; list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; float: right; color: var(--orange-dark); font-size: 20px; line-height: 15px; }
+    details[open] summary::after { content: "−"; }
+    details p { margin: 14px 0 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .final-cta { padding: 65px 26px; color: white; background: linear-gradient(110deg,#172338,#101827); text-align: center; }
+    .final-cta h2 { margin: 0 0 13px; font-size: clamp(29px,4vw,42px); letter-spacing: -1.2px; }
+    .final-cta p { max-width: 580px; margin: 0 auto 24px; color: #c5ceda; font-size: 15px; line-height: 1.7; }
+    .site-footer { padding: 38px 26px 25px; color: #b9c1ce; background: #0b1220; }
+    .footer-inner { max-width: 1180px; margin: auto; }
+    .footer-top { display: flex; justify-content: space-between; align-items: center; gap: 25px; padding-bottom: 27px; border-bottom: 1px solid rgba(255,255,255,.12); }
+    .footer-brand { color: white; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
+    .footer-links a { color: #d5dbe4; text-decoration: none; font-size: 13px; }
+    .footer-links a:hover { color: #ffad6c; }
+    .legal { max-width: 980px; padding-top: 22px; font-size: 11px; line-height: 1.75; color: #929dad; }
+    .legal p { margin: 0 0 10px; }
+    @media (max-width: 850px) {
+      .main-nav { display: none; }
+      .hero-inner { grid-template-columns: 1fr; gap: 38px; max-width: 700px; padding-top: 58px; }
+      .hero-copy { max-width: 620px; }
+      .quote-panel { max-width: 540px; }
+      .reason-grid { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .cover-layout { grid-template-columns: 1fr; gap: 34px; }
+      .cover-art { min-height: 270px; }
+    }
+    @media (max-width: 560px) {
+      .header-inner { min-height: 66px; padding: 0 16px; }
+      .brand { font-size: 22px; }
+      .brand-mark { width: 32px; height: 32px; border-radius: 10px; }
+      .sign-in { padding: 9px 11px; font-size: 12px; }
+      .header-actions .button { display: none; }
+      .hero-inner { min-height: 0; padding: 48px 18px 54px; gap: 30px; }
+      .hero h1 { font-size: 43px; letter-spacing: -1.9px; }
+      .hero-copy { font-size: 15px; }
+      .hero-points { gap: 10px 16px; font-size: 12px; }
+      .quote-panel { padding: 22px 18px; border-radius: 18px; }
+      .quote-panel h2 { font-size: 22px; }
+      .duration-preview span { font-size: 10px; }
+      .trust-inner { padding: 17px 15px; grid-template-columns: 1fr; gap: 12px; }
+      .trust-item { justify-content: flex-start; font-size: 12px; }
+      .section { padding: 60px 18px; }
+      .section-heading { margin-bottom: 30px; }
+      .section-heading p { font-size: 14px; }
+      .reason-grid, .steps { grid-template-columns: 1fr; }
+      .reason-card { padding: 23px; }
+      .cover-art { min-height: 220px; }
+      .cover-copy h2 { font-size: 32px; }
+      .final-cta { padding: 52px 18px; }
+      .footer-top { align-items: flex-start; flex-direction: column; }
+      .footer-links { gap: 14px 18px; }
+      .site-footer { padding: 32px 18px 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
 </head>
-
-
 <body>
-
-
-<header>
-
-<div class="logo">
-Temp<span>Cover</span>
-</div>
-
-
-<a href="login.html" class="portal-btn">
-Portal
-</a>
-
-
-</header>
-
-
-
-<section class="hero">
-
-
-<h1>
-Temporary Motor Insurance Made Simple
-</h1>
-
-
-<p>
-Get flexible short-term vehicle cover online. Receive your quote, pay securely and manage your policy through your personal portal.
-</p>
-
-
-
-<a href="quote.html" class="quote-button">
-Get a Quote
-</a>
-
-
-<a href="login.html" class="login-button">
-Customer Portal
-</a>
-
-
-
-</section>
-<section class="section">
-
-
-<h2 class="section-title">
-Your Insurance Portal
-</h2>
-
-
-<div class="card orange-card">
-
-
-<h3>
-Manage your cover online
-</h3>
-
-
-<p>
-View your policy details, documents and cover information anytime through your personal TempCover portal.
-</p>
-
-
-<br>
-
-
-<div style="
-background:#f6f6f6;
-border-radius:20px;
-padding:20px;
-">
-
-
-<p style="
-font-size:13px;
-color:#777;
-">
-Policy Status
-</p>
-
-
-<h2 style="
-color:#16a34a;
-margin:8px 0 15px;
-">
-ACTIVE
-</h2>
-
-
-<p style="
-font-size:13px;
-color:#777;
-">
-Vehicle
-</p>
-
-
-<h3>
-Your vehicle details
-</h3>
-
-
-<br>
-
-
-<div style="
-display:flex;
-gap:10px;
-">
-
-
-<div style="
-flex:1;
-background:#ff7a00;
-color:white;
-padding:12px;
-border-radius:12px;
-text-align:center;
-font-weight:bold;
-">
-Policy
-</div>
-
-
-<div style="
-flex:1;
-background:#222;
-color:white;
-padding:12px;
-border-radius:12px;
-text-align:center;
-font-weight:bold;
-">
-Documents
-</div>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<section class="section">
-
-
-<h2 class="section-title">
-Why Choose TempCover?
-</h2>
-
-
-
-<div class="card">
-
-<h3>
-Fast Online Cover
-</h3>
-
-<p>
-Get a quote online, complete your purchase securely and manage your policy digitally.
-</p>
-
-</div>
-
-
-
-
-<div class="card">
-
-<h3>
-Flexible Temporary Insurance
-</h3>
-
-<p>
-Short-term cover designed around your needs, whether you need cover for hours, days or longer periods.
-</p>
-
-</div>
-
-
-
-
-<div class="card">
-
-<h3>
-Simple Digital Experience
-</h3>
-
-<p>
-Everything in one place — your quote, policy information and documents through your online account.
-</p>
-
-</div>
-
-
-
-</section>
-  
- <section class="section">
-
-
-<h2 class="section-title">
-Coverage Details
-</h2>
-
-
-
-<div class="card orange-card">
-
-<h3>
-Comprehensive Motor Insurance
-</h3>
-
-<p>
-Full protection for your vehicle with temporary cover options to suit your needs.
-</p>
-
-</div>
-
-
-
-<div class="card orange-card">
-
-<h3>
-Third Party Liability
-</h3>
-
-<p>
-Protection against claims made by other road users while you are insured.
-</p>
-
-</div>
-
-
-
-
-<div class="card orange-card">
-
-<h3>
-Personal Accident Cover
-</h3>
-
-<p>
-Additional protection included with eligible temporary insurance policies.
-</p>
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-<section class="section">
-
-
-<h2 class="section-title">
-How It Works
-</h2>
-
-
-
-<div class="card">
-
-<h3>
-1. Get Your Quote
-</h3>
-
-<p>
-Enter your details and vehicle information to receive your temporary insurance quote online.
-</p>
-
-</div>
-
-
-
-
-<div class="card">
-
-<h3>
-2. Choose Your Cover
-</h3>
-
-<p>
-Review your policy details and select the cover that works for you.
-</p>
-
-</div>
-
-
-
-
-<div class="card">
-
-<h3>
-3. Pay Securely
-</h3>
-
-<p>
-Complete your payment securely and your policy will be created automatically.
-</p>
-
-</div>
-
-
-
-
-<div class="card">
-
-<h3>
-4. Access Your Portal
-</h3>
-
-<p>
-Log in to view your policy details and documents whenever you need them.
-</p>
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-<section class="section">
-
-
-<h2 class="section-title">
-Frequently Asked Questions
-</h2>
-
-
-
-<div class="card">
-
-<h3>
-How quickly can I get covered?
-</h3>
-
-<p>
-Once your purchase is complete, your policy details will be available through your online portal.
-</p>
-
-</div>
-
-
-
-<div class="card">
-
-<h3>
-Can I view my documents online?
-</h3>
-
-<p>
-Yes. Your policy information and documents can be accessed through your customer portal.
-</p>
-
-</div>
-
-
-
-<div class="card">
-
-<h3>
-Contact Us
-</h3>
-
-<p>
-Email: contactus@tempcover.com
-</p>
-
-<br>
-
-<p>
-If you wish to make a complaint, please email:
-<br>
-complaints@tempcover.com
-</p>
-
-<br>
-
-<p>
-Call our dedicated team on 0333 241 3392 and you'll be able to choose to speak to the insurer named on your certificate by choosing 1 of 8 options.
-</p>
-
-</div>
-
-
-
-</section> 
-<footer style="
-background:#222;
-color:white;
-padding:35px 20px;
-text-align:center;
-font-size:13px;
-line-height:1.7;
-border-radius:30px 30px 0 0;
-">
-
-
-<h2 style="
-color:#ff7a00;
-margin-bottom:15px;
-">
-TempCover
-</h2>
-
-
-<p>
-Operated by RVU Services Limited, registered in England and Wales (Company No. 15331775) at The Cooperage, 5 Copper Row, London, SE1 2LH.
-</p>
-
-
-<p style="margin-top:15px;">
-RVU Services Limited (FRN 1007258) is an Appointed Representative of Tempcover Limited (FRN 746985) which is authorised and regulated by the Financial Conduct Authority. You can check this on the Financial Services Register.
-</p>
-
-
-<p style="margin-top:15px;">
-© Copyright 2026 Tempcover Limited, licensed to RVU Services Limited. All rights reserved.
-</p>
-
-
-<p style="margin-top:10px;">
-An RVU Company.
-</p>
-
-
-<p>
-Tempcover 2026. An RVU Company.
-</p>
-
-
-</footer>
-
-
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="TempCover home">
+        <span class="brand-mark">TC</span><span>Temp<span>Cover</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#why-us">Why TempCover</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#cover">Car cover</a>
+        <a href="#faqs">FAQs</a>
+      </nav>
+      <div class="header-actions">
+        <a class="sign-in" href="login.html" aria-label="Sign in to your customer portal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.7-3.5 3.2-5.5 7-5.5s6.3 2 7 5.5"/></svg>
+          Sign in
+        </a>
+        <a class="button" href="quote.html">Get a quote</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">Temporary car insurance</p>
+          <h1>Quick, simple cover for <span>your journey.</span></h1>
+          <p class="hero-copy">Need to borrow a car, collect a vehicle or arrange cover for a short trip? Get started with temporary car insurance online.</p>
+          <div class="hero-points">
+            <span><b class="tick">✓</b> Flexible short-term cover</span>
+            <span><b class="tick">✓</b> Secure online payment</span>
+            <span><b class="tick">✓</b> Customer portal access</span>
+          </div>
+        </div>
+        <div class="quote-panel">
+          <div class="quote-panel-top">
+            <h2>Get started</h2>
+            <span class="secure-tag">Secure quote journey</span>
+          </div>
+          <p class="quote-sub">Start your temporary car insurance quote in a few simple steps.</p>
+          <label class="reg-label" for="registration">Your car registration</label>
+          <div class="reg-display">
+            <span class="gb">GB</span>
+            <input id="registration" type="text" maxlength="8" placeholder="Enter registration" autocomplete="off" aria-label="Car registration">
+          </div>
+          <a class="button" id="quote-link" href="quote.html">Get my quote <span aria-hidden="true">&nbsp;→</span></a>
+          <div class="duration-preview" aria-label="Flexible cover durations">
+            <span>Hourly options</span><span>Daily cover</span><span>Weekly cover</span>
+          </div>
+          <p class="quote-note">Your quote and available options are confirmed on the next page. Cover is subject to eligibility, underwriting and policy terms.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Service highlights">
+      <div class="trust-inner">
+        <div class="trust-item"><span class="trust-icon">◷</span> A straightforward online journey</div>
+        <div class="trust-item"><span class="trust-icon">⌁</span> Choose the cover period you need</div>
+        <div class="trust-item"><span class="trust-icon">▣</span> Manage your account online</div>
+      </div>
+    </section>
+
+    <section class="section" id="why-us">
+      <div class="section-inner">
+        <div class="section-heading">
+          <p class="section-kicker">Why choose TempCover?</p>
+          <h2>Temporary car cover, made simple.</h2>
+          <p>A clear online experience designed around the moments when you need short-term car insurance.</p>
+        </div>
+        <div class="reason-grid">
+          <article class="reason-card">
+            <div class="reason-icon">⌁</div>
+            <h3>Quick to get started</h3>
+            <p>Begin online and follow the quote journey to enter your details and review the options available.</p>
+          </article>
+          <article class="reason-card">
+            <div class="reason-icon">◷</div>
+            <h3>Flexible durations</h3>
+            <p>Explore temporary cover options for the length of time you need, subject to availability.</p>
+          </article>
+          <article class="reason-card">
+            <div class="reason-icon">▣</div>
+            <h3>Manage your cover online</h3>
+            <p>Sign in to your customer portal to access your account and view your policy information.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft-section" id="how-it-works">
+      <div class="section-inner">
+        <div class="section-heading">
+          <p class="section-kicker">How it works</p>
+          <h2>Four simple steps.</h2>
+          <p>Everything starts with your vehicle details. You can review the information you provide before continuing to payment.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><span class="step-number">1</span><h3>Start your quote</h3><p>Enter your car details to begin the quote process.</p></article>
+          <article class="step"><span class="step-number">2</span><h3>Add your details</h3><p>Complete the driver and vehicle information requested.</p></article>
+          <article class="step"><span class="step-number">3</span><h3>Review and pay</h3><p>Check the available cover details and complete secure payment.</p></article>
+          <article class="step"><span class="step-number">4</span><h3>Visit your portal</h3><p>Sign in to your customer account to view your policy information.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cover">
+      <div class="section-inner cover-layout">
+        <div class="cover-art" aria-hidden="true">
+          <svg class="car-illustration" viewBox="0 0 520 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="260" cy="222" rx="205" ry="18" fill="#B96C35" opacity=".16"/>
+            <path d="M91 164L112 113C119 96 132 86 151 82L218 67C236 63 255 64 273 72L346 105L400 117C421 122 435 137 440 157L449 187C452 198 444 208 432 208H83C69 208 61 195 68 183L78 169C81 166 85 164 91 164Z" fill="#172338"/>
+            <path d="M136 113C141 101 151 94 165 91L218 79C236 75 250 77 266 84L318 109L136 113Z" fill="#DCE8F4"/>
+            <path d="M278 87L329 111L365 117L267 117L278 87Z" fill="#C4D8EA"/>
+            <path d="M102 164L117 126C121 116 129 112 140 112L386 117C405 119 418 130 423 148L427 164H102Z" fill="#263A56"/>
+            <path d="M77 172H445L449 188C452 199 444 208 432 208H83C69 208 61 195 68 183L77 172Z" fill="#FF7A00"/>
+            <path d="M91 171H431" stroke="#FFB16D" stroke-width="4" stroke-linecap="round"/>
+            <path d="M80 174L66 187C62 193 66 200 74 200H93L101 176L80 174Z" fill="#F6F8FB"/>
+            <path d="M427 176L448 181L451 194C452 199 448 202 442 202H425L427 176Z" fill="#FFE5D2"/>
+            <circle cx="153" cy="202" r="34" fill="#172338"/><circle cx="153" cy="202" r="19" fill="#D9E0E8"/><circle cx="153" cy="202" r="8" fill="#8B96A5"/>
+            <circle cx="370" cy="202" r="34" fill="#172338"/><circle cx="370" cy="202" r="19" fill="#D9E0E8"/><circle cx="370" cy="202" r="8" fill="#8B96A5"/>
+            <path d="M208 137H246" stroke="#FFB16D" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+          </svg>
+        </div>
+        <div class="cover-copy">
+          <p class="section-kicker">Car insurance only</p>
+          <h2>Cover for the times you need a car.</h2>
+          <p>Whether you are borrowing a car, collecting a vehicle or planning a short journey, the quote journey helps you explore temporary car insurance options.</p>
+          <ul class="cover-list">
+            <li><b>✓</b><span>Temporary car insurance options in one place.</span></li>
+            <li><b>✓</b><span>Review the policy information before you pay.</span></li>
+            <li><b>✓</b><span>Access your customer account through the online portal.</span></li>
+          </ul>
+          <a class="button" href="quote.html">Get a car quote&nbsp; →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft-section" id="faqs">
+      <div class="section-inner">
+        <div class="section-heading">
+          <p class="section-kicker">FAQs</p>
+          <h2>Questions before you start?</h2>
+          <p>Some quick information about using the TempCover website.</p>
+        </div>
+        <div class="faq-list">
+          <details><summary>How do I get a quote?</summary><p>Select “Get a quote” and follow the quote page to enter the vehicle and driver details requested.</p></details>
+          <details><summary>What type of insurance is this website for?</summary><p>This website is focused on temporary car insurance.</p></details>
+          <details><summary>How do I access my customer portal?</summary><p>Select “Sign in” at the top of the page. Enter your account details on the login page. After a successful login, you will be redirected to your customer dashboard.</p></details>
+          <details><summary>Where can I view my policy information?</summary><p>Sign in to your customer portal to view the policy information available in your account.</p></details>
+          <details><summary>When does cover become active?</summary><p>Please check the policy details and confirmation provided during your purchase. Cover is subject to eligibility, underwriting, acceptance and the terms of the policy.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <h2>Ready to get started?</h2>
+      <p>Start your temporary car insurance quote online and review the options available for your vehicle.</p>
+      <a class="button" href="quote.html">Get a quote&nbsp; →</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <a class="brand footer-brand" href="index.html"><span class="brand-mark">TC</span><span>Temp<span>Cover</span></span></a>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="quote.html">Get a quote</a>
+          <a href="login.html">Customer portal</a>
+          <a href="#faqs">FAQs</a>
+        </nav>
+      </div>
+      <div class="legal">
+        <p>Operated by RVU Services Limited, registered in England and Wales (Company No. 15331775) at The Cooperage, 5 Copper Row, London, SE1 2LH.</p>
+        <p>RVU Services Limited (FRN 1007258) is an Appointed Representative of Tempcover Limited (FRN 746985), which is authorised and regulated by the Financial Conduct Authority. You can check this on the Financial Services Register.</p>
+        <p>© Copyright 2026 Tempcover Limited, licensed to RVU Services Limited. All rights reserved. An RVU Company.</p>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const registrationInput = document.getElementById("registration");
+    const quoteLink = document.getElementById("quote-link");
+    registrationInput.addEventListener("input", () => {
+      registrationInput.value = registrationInput.value.toUpperCase();
+    });
+    quoteLink.addEventListener("click", () => {
+      const registration = registrationInput.value.trim();
+      if (registration) {
+        sessionStorage.setItem("homepageRegistration", registration);
+      }
+    });
+  </script>
 </body>
 </html>
