@@ -69,21 +69,24 @@
       gap: 12px;
     }
 
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      display: block;
       flex-shrink: 0;
-      border-radius: 14px;
-      color: white;
-      background: linear-gradient(135deg,var(--orange-dark),var(--orange),#ff9d3f);
-      box-shadow: 0 5px 13px rgba(255,122,0,.2);
+      border-radius: 3px;
+      object-fit: cover;
     }
 
-    .brand-mark svg { width: 25px; height: 25px; }
-    .brand-name { font-size: 17px; font-weight: 900; letter-spacing: .7px; }
-    .brand-caption { margin-top: 4px; color: var(--muted); font-size: 10px; letter-spacing: 1.5px; }
+    .brand-name {
+      color: var(--ink);
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -1.1px;
+      line-height: 1;
+      text-transform: lowercase;
+    }
+    .brand-caption { margin-top: 5px; color: var(--muted); font-size: 9px; letter-spacing: 1.3px; }
 
     .dashboard-header {
       display: flex;
@@ -802,14 +805,9 @@
       <header class="dashboard-header">
         <div>
           <div class="brand-row" style="margin-bottom:20px">
-            <div class="brand-mark" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/>
-                <path d="m9 12 2 2 4-4"/>
-              </svg>
-            </div>
+            <img class="brand-logo" src="https://s3-eu-west-1.amazonaws.com/tpd/logos/4fca033e0000640005160149/0x0.png" alt="Tempcover logo">
             <div>
-              <div class="brand-name">TEMP COVER</div>
+              <div class="brand-name">tempcover</div>
               <div class="brand-caption">CUSTOMER PORTAL</div>
             </div>
           </div>
