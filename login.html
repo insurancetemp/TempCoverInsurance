@@ -1,342 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>TempCover | Customer Login</title>
-
+<meta name="theme-color" content="#f36f21">
+<title>Sign in | Tempcover Customer Portal</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
-
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
-}
-
-body{
-
-background:#f7f7f7;
-
-background:
-linear-gradient(
-180deg,
-#ff7a00 0%,
-#ff8f1f 220px,
-#f7f7f7 220px
-);
-
-min-height:100vh;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-padding:25px;
-
-}
-
-.login-card{
-
-width:100%;
-max-width:420px;
-
-background:#fff;
-
-border-radius:28px;
-
-padding:40px 30px;
-
-box-shadow:
-0 20px 45px rgba(0,0,0,.12);
-
-}
-
-.logo{
-
-width:72px;
-height:72px;
-
-border-radius:20px;
-
-background:#ff7a00;
-
-color:#fff;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-font-size:34px;
-
-margin:0 auto 20px;
-
-font-weight:bold;
-
-}
-
-h1{
-
-text-align:center;
-
-font-size:32px;
-
-color:#222;
-
-margin-bottom:8px;
-
-}
-
-.subtitle{
-
-text-align:center;
-
-color:#666;
-
-font-size:15px;
-
-line-height:1.6;
-
-margin-bottom:35px;
-
-}
-
-.input-group{
-
-margin-bottom:20px;
-
-}
-
-.input-group label{
-
-display:block;
-
-font-weight:600;
-
-margin-bottom:8px;
-
-color:#333;
-
-}
-
-.input-group input{
-
-width:100%;
-
-padding:16px;
-
-border:1px solid #ddd;
-
-border-radius:16px;
-
-font-size:16px;
-
-transition:.25s;
-
-}
-
-.input-group input:focus{
-
-outline:none;
-
-border-color:#ff7a00;
-
-box-shadow:0 0 0 4px rgba(255,122,0,.15);
-
-}
-.login-button{
-
-width:100%;
-
-padding:18px;
-
-border:none;
-
-border-radius:16px;
-
-background:#ff7a00;
-
-color:#fff;
-
-font-size:18px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-transition:.25s;
-
-margin-top:10px;
-
-}
-
-.login-button:hover{
-
-background:#e86e00;
-
-}
-
-.login-button:disabled{
-
-opacity:.7;
-
-cursor:not-allowed;
-
-}
-
-.links{
-
-margin-top:25px;
-
-text-align:center;
-
-}
-
-.links a{
-
-color:#ff7a00;
-
-text-decoration:none;
-
-font-weight:600;
-
-}
-
-.links a:hover{
-
-text-decoration:underline;
-
-}
-
-.security{
-
-margin-top:30px;
-
-padding:16px;
-
-background:#fff7f0;
-
-border-radius:16px;
-
-border:1px solid #ffe0c2;
-
-text-align:center;
-
-font-size:14px;
-
-color:#666;
-
-line-height:1.6;
-
-}
-
-.message{
-
-margin-top:20px;
-
-text-align:center;
-
-font-weight:bold;
-
-}
-
-@media(max-width:600px){
-
-.login-card{
-
-padding:30px 22px;
-
-}
-
-h1{
-
-font-size:28px;
-
-}
-
-}
-
+:root{--orange:#f36f21;--orange-dark:#dc5d13;--ink:#252525;--muted:#68717b;--line:#e6e8eb;--soft:#fff5ee}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
+body{min-height:100vh;background:#f5f6f7;display:flex;flex-direction:column}
+.site-header{height:86px;background:#fff;border-bottom:1px solid #eceef0;display:flex;align-items:center;padding:0 clamp(22px,6vw,88px)}
+.brand{display:flex;align-items:center;gap:13px;text-decoration:none;color:inherit}
+.brand img{display:block;width:176px;max-height:54px;object-fit:contain}
+.brand-divider{height:34px;width:1px;background:#e4e4e4}
+.brand-caption{font-size:12px;letter-spacing:1.4px;font-weight:700;color:#666;text-transform:uppercase}
+.page-shell{width:min(1080px,calc(100% - 40px));margin:auto;display:grid;grid-template-columns:1fr 440px;align-items:center;gap:clamp(40px,7vw,92px);padding:55px 0}
+.intro{padding:12px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--orange-dark);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:22px}
+.eyebrow:before{content:"";width:25px;height:2px;background:var(--orange)}
+.intro h1{font-size:clamp(36px,4.2vw,52px);line-height:1.08;letter-spacing:-1.5px;margin:0 0 20px;font-weight:750}
+.intro h1 span{color:var(--orange)}
+.intro-copy{font-size:17px;line-height:1.75;color:#626b75;max-width:490px;margin:0}
+.benefits{display:grid;gap:17px;margin-top:36px}
+.benefit{display:flex;align-items:center;gap:13px;color:#454d55;font-size:14px;font-weight:600}
+.benefit-icon{width:34px;height:34px;flex:0 0 34px;border-radius:10px;background:#fff0e6;color:var(--orange-dark);display:grid;place-items:center;font-size:17px}
+.login-card{background:#fff;border:1px solid #e9eaec;border-radius:15px;padding:38px 36px;box-shadow:0 16px 45px rgba(26,34,42,.08)}
+.card-heading{margin-bottom:29px}
+.card-heading h2{font-size:25px;margin:0 0 8px;letter-spacing:-.4px}
+.card-heading p{font-size:14px;color:var(--muted);line-height:1.5;margin:0}
+.input-group{margin-bottom:20px}
+.input-group label{display:block;font-size:13px;font-weight:700;color:#343a40;margin-bottom:9px}
+.input-group input{width:100%;height:51px;padding:0 15px;border:1px solid #d9dde1;border-radius:7px;background:#fff;font-size:15px;color:#252525;transition:border-color .2s,box-shadow .2s}
+.input-group input::placeholder{color:#a0a6ad}
+.input-group input:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(243,111,33,.13)}
+.forgot-row{text-align:right;margin:-4px 0 22px}
+.forgot-row a{color:var(--orange-dark);font-size:13px;font-weight:700;text-decoration:none}
+.forgot-row a:hover{text-decoration:underline}
+.login-button{width:100%;height:52px;border:0;border-radius:7px;background:var(--orange);color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s,transform .2s}
+.login-button:hover{background:var(--orange-dark)}
+.login-button:active{transform:translateY(1px)}
+.login-button:disabled{opacity:.7;cursor:not-allowed}
+.message{min-height:20px;margin-top:15px;text-align:center;font-size:13px;line-height:1.5;font-weight:600}
+.security{display:flex;align-items:flex-start;gap:11px;margin-top:24px;padding:15px;background:#fafafa;border:1px solid #eceef0;border-radius:8px;color:#69727b;font-size:12px;line-height:1.55}
+.security-mark{color:#29945b;font-size:17px;line-height:1}
+.site-footer{text-align:center;color:#9299a1;font-size:12px;padding:0 20px 25px}
+@media(max-width:800px){.page-shell{grid-template-columns:1fr;max-width:470px;gap:28px;padding:38px 0}.intro{text-align:center;padding:0}.intro-copy{margin:auto;font-size:15px}.intro h1{font-size:36px}.benefits{display:none}.eyebrow{margin-bottom:14px}.login-card{padding:32px 26px}.site-header{height:72px;justify-content:center}.brand img{width:158px}.brand-divider,.brand-caption{display:none}}
+@media(max-width:420px){.page-shell{width:calc(100% - 28px);padding:28px 0}.login-card{padding:28px 21px}.intro h1{font-size:32px}}
 </style>
-
 </head>
-
 <body>
-
-<div class="login-card">
-
-<div class="logo">TC</div>
-
-<h1>Welcome Back</h1>
-
-<p class="subtitle">
-Sign in to access your TempCover account, view your active policies and download your insurance documents.
-</p>
-
-<form id="loginForm">
-
-<div class="input-group">
-
-<label>Email Address</label>
-
-<input
-type="email"
-id="email"
-placeholder="Enter your email"
-required>
-
-</div>
-
-<div class="input-group">
-
-<label>Password</label>
-
-<input
-type="password"
-id="password"
-placeholder="Enter your password"
-required>
-
-</div>
-
-<div style="text-align:right;margin:-8px 0 14px;">
-<a href="#" id="forgotPassword" style="color:#ff7a00;text-decoration:none;font-size:14px;font-weight:600;">Forgot your password?</a>
-</div>
-
-<button
-type="submit"
-class="login-button">
-
-Sign In
-
-</button>
-
-<div
-class="message"
-id="message"></div>
-
-</form>
-
-
-
-<div class="security">
-
-🔒 Your information is protected using secure encrypted authentication.
-
-</div>
-
-</div>
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="Tempcover home">
+    <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/4fca033e0000640005160149/0x0.png" alt="Tempcover">
+    <span class="brand-divider" aria-hidden="true"></span>
+    <span class="brand-caption">Customer Portal</span>
+  </a>
+</header>
+<main class="page-shell">
+  <section class="intro" aria-label="Customer portal introduction">
+    <div class="eyebrow">Your cover, in your hands</div>
+    <h1>Welcome to your <span>Tempcover</span> account.</h1>
+    <p class="intro-copy">Sign in securely to view your policy details, access your insurance documents and keep your account information up to date.</p>
+    <div class="benefits">
+      <div class="benefit"><span class="benefit-icon" aria-hidden="true">✓</span> View your policy information</div>
+      <div class="benefit"><span class="benefit-icon" aria-hidden="true">▤</span> Access your policy documents</div>
+      <div class="benefit"><span class="benefit-icon" aria-hidden="true">⌁</span> Manage your account details</div>
+    </div>
+  </section>
+  <section class="login-card" aria-labelledby="loginTitle">
+    <div class="card-heading">
+      <h2 id="loginTitle">Sign in</h2>
+      <p>Enter your account details below to continue.</p>
+    </div>
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="name@example.com" autocomplete="email" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
+      </div>
+      <div class="forgot-row">
+        <a href="#" id="forgotPassword">Forgot your password?</a>
+      </div>
+      <button type="submit" class="login-button">Sign in securely</button>
+      <div class="message" id="message" role="status" aria-live="polite"></div>
+    </form>
+    <div class="security"><span class="security-mark" aria-hidden="true">●</span><span>Your sign-in is protected by secure authentication. Keep your password private and never share it with anyone.</span></div>
+  </section>
+</main>
+<footer class="site-footer">Tempcover Customer Portal</footer>
 <script>
-
 document
 .getElementById("loginForm")
 .addEventListener("submit", async function(e){
@@ -399,7 +157,7 @@ err.message || "Unable to sign in.";
 
 button.disabled = false;
 
-button.innerText = "Sign In";
+button.innerText = "Sign in securely";
 
 }
 
@@ -427,7 +185,7 @@ document.getElementById("forgotPassword").addEventListener("click", async functi
    });
    if (error) throw error;
    message.style.color = "#218838";
-   message.innerText = "If an account exists for that email, a password reset link has been sent. Please check your inbox."; 
+   message.innerText = "If an account exists for that email, a password reset link has been sent. Please check your inbox.";
  } catch (err) {
    message.style.color = "#d32f2f";
    message.innerText = err.message || "Unable to send a reset email. Please try again.";
@@ -436,8 +194,6 @@ document.getElementById("forgotPassword").addEventListener("click", async functi
    link.innerText = "Forgot your password?";
  }
 });
-
 </script>
-
 </body>
 </html>
