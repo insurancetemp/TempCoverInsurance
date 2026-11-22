@@ -228,12 +228,36 @@ body{
 }
 
 .signature-mark{
-    font-family:cursive;
-    font-size:25px;
+    font-family:"Segoe Script","Brush Script MT",cursive;
+    font-size:31px;
     font-style:italic;
+    font-weight:600;
     line-height:1;
-    color:#555;
-    margin-bottom:4px;
+    letter-spacing:-1px;
+    color:#e86b24;
+    margin:0 0 2px auto;
+    width:190px;
+    text-align:center;
+    position:relative;
+}
+.signature-mark::after{
+    content:"";
+    display:block;
+    width:150px;
+    height:9px;
+    margin:0 auto 5px;
+    border-bottom:2px solid #e86b24;
+    border-radius:50%;
+    transform:skewX(-22deg) rotate(-3deg);
+}
+.signature-brand-caption{
+    width:190px;
+    margin:0 0 9px auto;
+    text-align:center;
+    color:#777;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:1.5px;
 }
 
 
@@ -645,7 +669,9 @@ body{
 
     <div class="signature-right">
 
-        <div style="width:190px;border-bottom:1px solid #555;height:30px;margin-bottom:6px;"></div>
+        <div class="signature-mark" aria-label="Temp Cover decorative brand mark">Temp Cover</div>
+        <div class="signature-brand-caption">COMPANY BRAND MARK</div>
+        <div style="width:190px;border-bottom:1px solid #555;height:18px;margin:0 0 6px auto;"></div>
 
         <div>
             Authorised signature — to be completed by the insurer
