@@ -308,6 +308,10 @@ required>
 
 </div>
 
+<div style="text-align:right;margin:-8px 0 14px;">
+<a href="#" id="forgotPassword" style="color:#ff7a00;text-decoration:none;font-size:14px;font-weight:600;">Forgot your password?</a>
+</div>
+
 <button
 type="submit"
 class="login-button">
@@ -322,19 +326,7 @@ id="message"></div>
 
 </form>
 
-<div class="links">
 
-<p>
-<a href="#">Forgot your password?</a>
-</p>
-
-<br>
-
-<p>
-
-</p>
-
-</div>
 
 <div class="security">
 
@@ -411,6 +403,38 @@ button.innerText = "Sign In";
 
 }
 
+});
+
+
+document.getElementById("forgotPassword").addEventListener("click", async function(e){
+ e.preventDefault();
+ const email = document.getElementById("email").value.trim();
+ const message = document.getElementById("message");
+ if (!email) {
+   message.style.color = "#d32f2f";
+   message.innerText = "Enter your email address above first, then select Forgot your password?";
+   document.getElementById("email").focus();
+   return;
+ }
+ const link = this;
+ link.style.pointerEvents = "none";
+ link.innerText = "Sending reset email...";
+ message.style.color = "#666";
+ message.innerText = "";
+ try {
+   const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+     redirectTo: window.location.origin + "/reset-password.html"
+   });
+   if (error) throw error;
+   message.style.color = "#218838";
+   message.innerText = "If an account exists for that email, a password reset link has been sent. Please check your inbox."; 
+ } catch (err) {
+   message.style.color = "#d32f2f";
+   message.innerText = err.message || "Unable to send a reset email. Please try again.";
+ } finally {
+   link.style.pointerEvents = "";
+   link.innerText = "Forgot your password?";
+ }
 });
 
 </script>
