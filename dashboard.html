@@ -569,56 +569,47 @@
 
     .screen-header-mark svg { width: 22px; height: 22px; }
 
+    /* Profile screen — refined customer-account layout */
     .profile-welcome {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 19px;
-      margin-bottom: 19px;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: white;
+      position:relative; overflow:hidden; display:flex; align-items:center; gap:16px;
+      padding:23px; margin:0 0 21px; border:0; border-radius:23px; color:#fff;
+      background:linear-gradient(120deg,#c95100 0%,#f47700 58%,#ff9d3f 100%);
+      box-shadow:0 12px 25px rgba(225,98,0,.17);
     }
-
+    .profile-welcome::after {
+      content:""; position:absolute; width:155px; height:155px; right:-48px; top:-83px;
+      border:1px solid rgba(255,255,255,.24); border-radius:50%;
+      box-shadow:0 0 0 19px rgba(255,255,255,.07),0 0 0 39px rgba(255,255,255,.045);
+    }
     .avatar {
-      width: 55px;
-      height: 55px;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      border-radius: 18px;
-      color: white;
-      background: linear-gradient(135deg,#d95f00,#ff9d3f);
-      font-size: 21px;
-      font-weight: 900;
+      position:relative; z-index:1; width:61px; height:61px; display:grid; place-items:center;
+      flex-shrink:0; border:2px solid rgba(255,255,255,.55); border-radius:20px;
+      color:#d95f00; background:#fff; font-size:21px; font-weight:900;
+      box-shadow:0 5px 14px rgba(90,35,0,.13);
     }
-
-    .profile-welcome h2 { margin: 0 0 5px; font-size: 17px; overflow-wrap: anywhere; }
-    .profile-welcome p { margin: 0; color: var(--muted); font-size: 12px; }
-
-    .content-card {
-      padding: 19px;
-      margin-bottom: 15px;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: white;
-      box-shadow: 0 3px 12px rgba(23,32,51,.025);
-    }
-
-    .content-card h2 { margin: 0 0 15px; font-size: 16px; }
-
+    .profile-welcome-copy {position:relative;z-index:1;min-width:0}
+    .profile-welcome .profile-kicker {margin:0 0 6px;color:rgba(255,255,255,.82);font-size:9px;font-weight:800;letter-spacing:1.4px}
+    .profile-welcome h2 { margin:0 0 5px; color:white; font-size:19px; overflow-wrap:anywhere; }
+    .profile-welcome p { margin:0; color:rgba(255,255,255,.9); font-size:12px; }
+    .profile-section {padding:19px;margin:0 0 15px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 5px 18px rgba(23,32,51,.035)}
+    .profile-section-heading {display:flex;align-items:center;gap:11px;margin-bottom:15px}
+    .profile-section-icon {width:39px;height:39px;display:grid;place-items:center;flex-shrink:0;border-radius:13px;color:var(--orange-dark);background:var(--orange-light);font-size:18px}
+    .profile-section-heading h2 {margin:0;font-size:15px;font-weight:800}
+    .profile-section-heading p {margin:4px 0 0;color:var(--muted);font-size:11px}
+    .profile-fields {display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .profile-row {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding: 14px 0;
-      border-bottom: 1px solid #edf0f3;
+      min-width:0;min-height:73px;display:flex;flex-direction:column;justify-content:center;gap:7px;
+      padding:12px 13px;border:1px solid #edf0f4;border-radius:13px;background:#fafbfc;
     }
-
-    .profile-row:first-of-type { padding-top: 0; }
-    .profile-row:last-child { padding-bottom: 0; border-bottom: 0; }
-    .profile-row strong { color: var(--muted); font-size: 11px; font-weight: 700; }
-    .profile-row span { font-size: 14px; font-weight: 700; line-height: 1.5; overflow-wrap: anywhere; }
+    .profile-row.profile-row-wide {grid-column:1/-1}
+    .profile-row strong {color:#818b9b;font-size:10px;font-weight:700;letter-spacing:.25px}
+    .profile-row span {color:var(--ink);font-size:13px;font-weight:700;line-height:1.45;overflow-wrap:anywhere}
+    .security-note {
+      display:flex;align-items:flex-start;gap:11px;padding:15px;border:1px solid #dcefe3;
+      border-radius:16px;color:#526173;background:#f0f8f3;font-size:12px;line-height:1.6;
+    }
+    .security-note span {width:30px;height:30px;display:grid;place-items:center;flex-shrink:0;border-radius:10px;color:var(--green);background:#dff2e6;font-size:15px}
+    @media(max-width:390px){.profile-section{padding:15px}.profile-fields{grid-template-columns:1fr}.profile-row.profile-row-wide{grid-column:auto}.profile-welcome{padding:19px}}
 
     .security-note {
       display: flex;
@@ -1062,34 +1053,50 @@
 
       <div class="profile-welcome">
         <div class="avatar" id="profileAvatar">TC</div>
-        <div>
+        <div class="profile-welcome-copy">
+          <p class="profile-kicker">YOUR TEMP COVER ACCOUNT</p>
           <h2 id="profileWelcomeName">Your account</h2>
-          <p>Registered customer details</p>
+          <p>Personal details and policyholder information</p>
         </div>
       </div>
 
-      <div class="content-card">
-        <h2>Personal information</h2>
-        <div class="profile-row"><strong>Full name</strong><span id="profileName">Loading…</span></div>
-        <div class="profile-row"><strong>Date of birth</strong><span id="profileDob">Loading…</span></div>
-        <div class="profile-row"><strong>Occupation</strong><span id="profileOccupation">Loading…</span></div>
-        <div class="profile-row"><strong>Home address</strong><span id="profileAddress">Loading…</span></div>
-      </div>
+      <section class="profile-section" aria-labelledby="personalInfoHeading">
+        <div class="profile-section-heading">
+          <div class="profile-section-icon" aria-hidden="true">♙</div>
+          <div><h2 id="personalInfoHeading">Personal information</h2><p>Your registered policyholder details</p></div>
+        </div>
+        <div class="profile-fields">
+          <div class="profile-row"><strong>Full name</strong><span id="profileName">Loading…</span></div>
+          <div class="profile-row"><strong>Date of birth</strong><span id="profileDob">Loading…</span></div>
+          <div class="profile-row"><strong>Occupation</strong><span id="profileOccupation">Loading…</span></div>
+          <div class="profile-row profile-row-wide"><strong>Home address</strong><span id="profileAddress">Loading…</span></div>
+        </div>
+      </section>
 
-      <div class="content-card">
-        <h2>Contact details</h2>
-        <div class="profile-row"><strong>Email address</strong><span id="profileEmail">Loading…</span></div>
-        <div class="profile-row"><strong>Phone number</strong><span id="profilePhone">Loading…</span></div>
-      </div>
+      <section class="profile-section" aria-labelledby="contactInfoHeading">
+        <div class="profile-section-heading">
+          <div class="profile-section-icon" aria-hidden="true">✉</div>
+          <div><h2 id="contactInfoHeading">Contact details</h2><p>How we can reach you about your account</p></div>
+        </div>
+        <div class="profile-fields">
+          <div class="profile-row profile-row-wide"><strong>Email address</strong><span id="profileEmail">Loading…</span></div>
+          <div class="profile-row profile-row-wide"><strong>Phone number</strong><span id="profilePhone">Loading…</span></div>
+        </div>
+      </section>
 
-      <div class="content-card">
-        <h2>Driving licence</h2>
-        <div class="profile-row"><strong>Driving licence number</strong><span id="profileLicence">Loading…</span></div>
-      </div>
+      <section class="profile-section" aria-labelledby="licenceInfoHeading">
+        <div class="profile-section-heading">
+          <div class="profile-section-icon" aria-hidden="true">▣</div>
+          <div><h2 id="licenceInfoHeading">Driving licence</h2><p>Licence details held on your account</p></div>
+        </div>
+        <div class="profile-fields">
+          <div class="profile-row profile-row-wide"><strong>Driving licence number</strong><span id="profileLicence">Loading…</span></div>
+        </div>
+      </section>
 
       <div class="security-note">
         <span aria-hidden="true">🔒</span>
-        <div>Your account information is displayed privately after you sign in. If any details are incorrect, contact support for assistance.</div>
+        <div><strong>Your information is protected.</strong><br>These details are shown privately after you sign in. If anything needs correcting, contact support for assistance.</div>
       </div>
 
       <div class="screen-footer">Your profile information is provided from your customer account.</div>
